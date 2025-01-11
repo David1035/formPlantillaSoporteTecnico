@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar datos</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main class="main-container">
+        <form action="" id="form-container">
+            <button id="btnInicio" class="btnGeneral">INICIO</button>
+
+            <label for="id-llamada">Id</label>
+            <input type="text" id="id-llamada" class="input-container" required>
+
+            <label for="name">Name</label>
+            <input type="text" id="name" class="input-container">
+
+            <label for="documento">Document</label>
+            <input type="number" id="documento" class="input-container">
+
+            <label for="smnet">Smnet</label>
+            <input type="number" id="smnet" class="input-container">
+
+            <label for="observaciones"></label>
+            <textarea id="observaciones" class="observaciones-container"></textarea>
+
+            <label for="tecnology">Tecnology</label>
+            <select name="tecnology" id="tecnology" class="select-container">
+                <option value="default">si</option>
+            </select>
+            <label for="tipoServicio">Tigo</label>
+            <select name="tipoServicio" id="tipoServicio" class="select-container">
+                <option value="default">si</option>
+            </select>
+            <label for="naturaleza">Falla</label>
+            <select name="naturaleza" id="naturaleza" class="select-container">
+                <option value="default">GPON</option>
+            </select>
+            <label for="actualizacion-datos">Datos</label>
+            <select name="actualizacion-datos" id="actualizacion-datos" class="select-container">
+                <option value="si">No</option>
+                <option value="si">Si</option>
+            </select>
+            <label for="guion-agendamiento">Guion</label>
+            <select name="guion-agendamiento" id="guion-agendamiento" class="select-container">
+                <option value="si">No</option>
+                <option value="si">Si</option>
+            </select>
+            <label for="modo-back">Back</label>
+            <select name="modo-back" id="modo-back" class="select-container">
+                <option value="si">No</option>
+                <option value="si">Si</option>
+            </select>
+
+            <button id="btnGuardar" class="btnGeneral">COPIAR</button>
+            <button id="btnEnviar" class="btnGeneral">ENVIAR</button>
+            <label for="celular">Teléfono</label>
+            <input type="text" id="celular" class="input-container">
+
+            <label for="hora-b2b">¿Horario de B2B?</label>
+            <select name="hora-b2b" id="hora-b2b" class="select-container">
+                <option value="si">No</option>
+                <option value="si">Si</option>
+            </select>
+
+            <label for="quien-atiende">Atiende</label>
+            <input type="text" id="quien-atiende" class="input-container">
+            <label for="telefono-atiende">Celular</label>
+            <input type="text" id="telefono-atiende" class="input-container">
+            <label for="dias-atencion">Dias Atiende</label>
+            <select name="dias-atencion" id="dias-atencion" class="select-container">
+                <option value="si">Lunes a Viernes</option>
+                <option value="si">Lunes a Sábado</option>
+                <option value="si">Lunes a Domingo</option>
+            </select>
+            <label for="hora-atencion">Horario</label>
+            <input type="text" id="hora-atencion" class="input-container">
+            
+
+
+        </form>
+    </main>
+</body>
+</html>
