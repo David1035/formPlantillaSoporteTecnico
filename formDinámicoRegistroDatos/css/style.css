@@ -40,6 +40,11 @@ body {
     border-radius: 25px;
     border: 1px solid #297e21;
     padding: 5px;
+    overflow: hidden;
+    resize: none;
+    height: 50px;
+    line-height: 1.5;
+    box-sizing: border-box;
 }
 .observaciones-container:focus {
     background-color: #97cef3;
@@ -83,3 +88,16 @@ input:focus {
         select:focus {
             background-color: #9eecf1;
             }
+/* Estilos para los botones habilitados */
+button:enabled {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Estilos para los botones deshabilitados */
+button:disabled {
+    background-color: #ccc; /* Color gris para indicar que está deshabilitado */
+    color: #666;           /* Texto más claro */
+    cursor: not-allowed;   /* Cambiar el cursor a "prohibido" */
+    opacity: 0.6;          /* Reducir opacidad */
+}

@@ -1,4 +1,191 @@
-let horaInicial;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar datos</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+</head>
+<body>
+    <style>
+        body {
+    display: grid;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main-container {
+    max-width: 400px;
+    display: grid;
+    justify-content: center;
+    background-color: rgb(250, 253, 255);
+    padding: 20px;
+
+}
+.input-container {
+    width: 95px;
+    height: 16px;
+    border-radius: 5px;
+    border: 1px solid #297e21;
+    
+}
+.select-container {
+    border-radius: 15px;
+    border: 1px solid #297e21;
+    border: none;
+}
+#form-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10%;
+}
+
+.observaciones-container {
+    width: 90%;
+    border-radius: 25px;
+    border: 1px solid #297e21;
+    padding: 5px;
+    overflow: hidden;
+    resize: none;
+    height: 50px;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+.observaciones-container:focus {
+    background-color: #97cef3;
+    }
+    .observaciones-container:hover {
+        background-color: #97cef3;
+        }
+.btnGeneral:focus {
+    background-color: #97cef3;
+}
+.btnGeneral:hover {
+    background-color: #97cef3;
+}
+.btnGeneral {
+    width: 70px;
+    background-color: #eeeda6;
+    border: none;
+    padding: 3px 6px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #297e21;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    transition: 0.3s;
+    }
+input:hover {
+    background-color: #cfec2a;
+}
+input:focus {
+    background-color: #9eecf1;
+    }
+    select:hover {
+        background-color: #cfec2a;
+        }
+        select:focus {
+            background-color: #9eecf1;
+            }
+/* Estilos para los botones habilitados */
+button:enabled {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Estilos para los botones deshabilitados */
+button:disabled {
+    background-color: #ccc; /* Color gris para indicar que está deshabilitado */
+    color: #666;           /* Texto más claro */
+    cursor: not-allowed;   /* Cambiar el cursor a "prohibido" */
+    opacity: 0.6;          /* Reducir opacidad */
+}
+    </style>
+    <main class="main-container">
+        <form action="" id="form-container">
+            <button id="btnInicio" class="btnGeneral">INICIO</button>
+
+            <label for="id-llamada">Id</label>
+            <input type="text" id="id-llamada" class="input-container">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" class="input-container">
+            <label for="documentoIdentidad">CC</label>
+            <input type="number" id="documentoIdentidad" class="input-container">
+            <label for="smnet">Smnet</label>
+            <input type="number" id="smnet" class="input-container">
+
+            <label for="observaciones"></label>
+            <textarea id="observaciones" class="observaciones-container"></textarea>
+
+            <label for="tecnology">Tecnology</label>
+            <select name="tecnology" id="tecnology" class="select-container">
+                
+            </select>
+            <label for="tipoServicio">Tigo</label>
+            <select name="tipoServicio" id="tipoServicio" class="select-container">
+            </select>
+            <label for="naturaleza">Falla</label>
+            <select name="naturaleza" id="naturaleza" class="select-container">
+                <option value="default">GPON</option>
+            </select>
+            <label for="actualizacion-datos">Datos</label>
+            <select name="actualizacion-datos" id="actualizacion-datos" class="select-container">
+                
+            </select>
+            <label for="guion-agendamiento">Guion</label>
+            <select name="guion-agendamiento" id="guion-agendamiento" class="select-container">
+                
+            </select>
+            <label for="modo-back">Back</label>
+            <select name="modo-back" id="modo-back" class="select-container">
+                
+            </select>
+
+
+            <button id="btnCopiar" class="btnGeneral">COPIAR</button>
+            <button id="btnEnviar" class="btnGeneral">ENVIAR</button>
+            
+            
+            <label for="celular">Teléfono</label>
+            <input type="text" id="celular" class="input-container">
+
+            <label for="horario-b2b">¿Horario de B2B?</label>
+            <select name="horario-b2b" id="horario-b2b" class="select-container">            </select>
+
+            <label for="quien-atiende">Atiende</label>
+            <input type="text" id="quien-atiende" class="input-container">
+            <label for="telefono-atiende">Celular</label>
+            <input type="text" id="telefono-atiende" class="input-container">
+            <label for="dias-atencion">Dias Atiende</label>
+            <select name="dias-atencion" id="dias-atencion" class="select-container">
+                <option value="si">Lunes a Viernes</option>
+                <option value="si">Lunes a Sábado</option>
+                <option value="si">Lunes a Domingo</option>
+            </select>
+            <label for="horario-atencion">Horario</label>
+            <input type="text" id="horario-atencion" class="input-container">
+            
+
+        </form>
+        <p id="totalTiempoText"></p>
+        <button id="localStorageButton" class="btnGeneral">Borrar datos </button>
+    </main>
+    <script src="">
+        let horaInicial;
 let dataHora = '';
 let horaFinal;
 const btnInicio = document.getElementById('btnInicio')
@@ -241,3 +428,7 @@ function cargarOpcionesDinamicas() {
 
 // Llamar a la función para cargar las opciones
 document.addEventListener('DOMContentLoaded', cargarOpcionesDinamicas);
+
+    </script>
+</body>
+</html>
