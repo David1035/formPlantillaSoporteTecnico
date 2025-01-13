@@ -77,15 +77,3 @@ function inicializarSelects() {
 
 inicializarSelects();
 
-/*Cambiar de forma dinámica b2b */
-
-const dinamicB2bInvisible = document.getElementById('horario-b2b');
-    dinamicB2bInvisible.addEventListener('change', function (){
-        if(dinamicB2bInvisible.value === 'si'){
-            const invisible = document.getElementById('horario-b2b-invisible');
-            invisible.style.display = 'block';
-        }else {
-            const invisible = document.getElementById('horario-b2b-invisible');
-            invisible.style.display = 'none';
-        }
-    });     

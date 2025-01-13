@@ -231,12 +231,13 @@
         const idLlamada = document.getElementById('id-llamada');
 
 
-
+        btnEnviar.disabled = true;
         btnInicio.addEventListener('click', function(event) {
             event.preventDefault();
             horaInicial = new Date();
             insertarTexto()
             btnInicio.disabled = true;
+            btnEnviar.disabled = false;
             idLlamada.focus()
 
         })
@@ -251,7 +252,6 @@
 
         btnCopiar.addEventListener('click', function(event) {
             event.preventDefault()
-            console.log(horaInicial)
             copiarDatos()
             btnEnviar.focus()
         })
@@ -264,12 +264,12 @@
                 calcularTiempo()
                 btnInicio.disabled = false;
                 limpiarDatosForm()
-                insertarTexto()
-                console.log(`la hora final es ${horaFinal}`)
+                insertarTexto() 
             } else{
                 limpiarDatosForm()
                 insertarTexto()
             }
+            btnEnviar.disabled = true;
             btnInicio.focus()
         })
 
@@ -322,7 +322,7 @@
             const cel = document.getElementById('celular')
 
             if(horarioB2B.value === 'si'){
-                const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: ${atiendeB2b.value}, celular ${celularB2b.value}, días de atención ${diasAtencion.value}, en el horario ${horarioAtencion.value}, documento: ${documento.value}`;
+                const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}`;
                 return navigator.clipboard.writeText(plantillaCreada)
             } else {
                 const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}, cel: ${cel.value}`;
@@ -346,6 +346,7 @@
             document.getElementById('actualizacion-datos').value = 'no';
             document.getElementById('guion-agendamiento').value = 'no';
             document.getElementById('modo-back').value = 'no';
+            ocultarB2b() 
             
         }
 
@@ -431,16 +432,23 @@
 
         /*Cambiar de forma dinámica b2b */
 
-        const dinamicB2bInvisible = document.getElementById('horario-b2b');
-            dinamicB2bInvisible.addEventListener('change', function (){
+        function ocultarB2b() {
+            const dinamicB2bInvisible = document.getElementById('horario-b2b');
+            const invisible = document.getElementById('horario-b2b-invisible');
+
+            function actualizarVisibilidad () {
                 if(dinamicB2bInvisible.value === 'si'){
-                    const invisible = document.getElementById('horario-b2b-invisible');
+                    
                     invisible.style.display = 'block';
                 }else {
                     const invisible = document.getElementById('horario-b2b-invisible');
                     invisible.style.display = 'none';
                 }
-            });     
+            }
+            dinamicB2bInvisible.addEventListener('change', actualizarVisibilidad);
+            actualizarVisibilidad()
+        }   
+        ocultarB2b()   
     </script>
 </body>
 </html>

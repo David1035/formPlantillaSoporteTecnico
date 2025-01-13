@@ -43,13 +43,10 @@ btnEnviar.addEventListener('click', function(event) {
         calcularTiempo()
         btnInicio.disabled = false;
         limpiarDatosForm()
-        insertarTexto()
-        console.log(`la hora final es ${horaFinal}`)
-    } else{
-        limpiarDatosForm()
-        insertarTexto()
-    }
+    } 
     btnInicio.focus()
+    ocultarB2b()
+    insertarTexto()
 })
 
 function calcularTiempo() {
@@ -101,7 +98,7 @@ function copiarDatos () {
     const cel = document.getElementById('celular')
 
     if(horarioB2B.value === 'si'){
-        const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: ${atiendeB2b.value}, celular ${celularB2b.value}, días de atención ${diasAtencion.value}, en el horario ${horarioAtencion.value}, documento: ${documento.value}`;
+        const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}`;
         return navigator.clipboard.writeText(plantillaCreada)
     } else {
         const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}, cel: ${cel.value}`;
@@ -128,3 +125,22 @@ function limpiarDatosForm () {
     
 }
 
+/*Cambiar de forma dinámica b2b */
+
+function ocultarB2b() {
+    const dinamicB2bInvisible = document.getElementById('horario-b2b');
+    const invisible = document.getElementById('horario-b2b-invisible');
+
+    function actualizarVisibilidad () {
+        if(dinamicB2bInvisible.value === 'si'){
+            
+            invisible.style.display = 'block';
+        }else {
+            const invisible = document.getElementById('horario-b2b-invisible');
+            invisible.style.display = 'none';
+        }
+    }
+    dinamicB2bInvisible.addEventListener('change', actualizarVisibilidad);
+    actualizarVisibilidad()
+}   
+ocultarB2b() 
