@@ -11,7 +11,7 @@
 </head>
 <body>
     <main class="main-container">
-        <form action="" id="form-container">
+        <form action="" id="form-container" class="form-container-class">
             <button id="btnInicio" class="btnGeneral">INICIO</button>
 
             <label for="id-llamada">Id</label>
@@ -28,58 +28,67 @@
             <textarea id="observaciones" class="observaciones-container"></textarea>
 
             <label for="tecnology">Tecnology</label>
-            <select name="tecnology" id="tecnology" class="select-container">
-                
-            </select>
+            <select name="tecnology" id="tecnology" class="select-container"></select>
             <label for="tipoServicio">Tigo</label>
-            <select name="tipoServicio" id="tipoServicio" class="select-container">
-            </select>
+            <select name="tipoServicio" id="tipoServicio" class="select-container"></select>
             <label for="naturaleza">Falla</label>
-            <select name="naturaleza" id="naturaleza" class="select-container">
-                <option value="default">GPON</option>
-            </select>
+            <select name="naturaleza" id="naturaleza" class="select-container"></select>
+            
             <label for="actualizacion-datos">Datos</label>
             <select name="actualizacion-datos" id="actualizacion-datos" class="select-container">
-                
+                <option value="no">No</option>
+                <option value="si">Si</option>
             </select>
             <label for="guion-agendamiento">Guion</label>
             <select name="guion-agendamiento" id="guion-agendamiento" class="select-container">
-                
+                <option value="no">No</option>
+                <option value="si">Si</option>
             </select>
             <label for="modo-back">Back</label>
             <select name="modo-back" id="modo-back" class="select-container">
-                
+                <option value="no">No</option>
+                <option value="si">Si</option>
             </select>
 
 
-            <button id="btnCopiar" class="btnGeneral">COPIAR</button>
-            <button id="btnEnviar" class="btnGeneral">ENVIAR</button>
+            
             
             
             <label for="celular">Teléfono</label>
             <input type="text" id="celular" class="input-container">
 
             <label for="horario-b2b">¿Horario de B2B?</label>
-            <select name="horario-b2b" id="horario-b2b" class="select-container">            </select>
+            <select name="horario-b2b" id="horario-b2b" class="select-container">
+                <option value="no">No</option>
+                <option value="si">Si</option>
+            </select>
 
-            <label for="quien-atiende">Atiende</label>
-            <input type="text" id="quien-atiende" class="input-container">
-            <label for="telefono-atiende">Celular</label>
-            <input type="text" id="telefono-atiende" class="input-container">
+            <div id="horario-b2b-invisible" class="form-container-class invisible">
+                <label for="atiende-b2b">Atiende</label>
+            <input type="text" id="atiende-b2b" class="input-container">
+            <label for="celular-b2b">Celular</label>
+            <input type="text" id="celular-b2b" class="input-container">
+            
+            
             <label for="dias-atencion">Dias Atiende</label>
             <select name="dias-atencion" id="dias-atencion" class="select-container">
-                <option value="si">Lunes a Viernes</option>
-                <option value="si">Lunes a Sábado</option>
-                <option value="si">Lunes a Domingo</option>
+                <option value="Lunes a Viernes">Lunes a Viernes</option>
+                <option value="Lunes a Sábado">Lunes a Sábado</option>
+                <option value="Lunes a Domingo">Lunes a Domingo</option>
             </select>
             <label for="horario-atencion">Horario</label>
             <input type="text" id="horario-atencion" class="input-container">
+            </div>
             
+            <button id="btnCopiar" class="btnGeneral">COPIAR</button>
+            <button id="btnEnviar" class="btnGeneral">ENVIAR</button>
 
         </form>
-        <p id="totalTiempoText"></p>
-        <button id="localStorageButton" class="btnGeneral">Borrar datos </button>
+        <h1 id="datos-copiados" class="datos-copiados"></h1>
+        <p id="totalTiempoText" class="contador-tiempo-container"></p>
+        <button id="localStorageButton" class="btnGeneral">Borrar promedio</button>
     </main>
     <script src="js/formDocument.js"></script>
+    <script src="js/dinamicList.js"></script>
 </body>
 </html>

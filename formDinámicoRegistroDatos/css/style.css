@@ -18,6 +18,8 @@ body {
     height: 16px;
     border-radius: 5px;
     border: 1px solid #297e21;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
     
 }
 .select-container {
@@ -25,7 +27,7 @@ body {
     border: 1px solid #297e21;
     border: none;
 }
-#form-container {
+.form-container-class {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -37,31 +39,37 @@ body {
 
 .observaciones-container {
     width: 90%;
-    border-radius: 25px;
-    border: 1px solid #297e21;
+    border-radius: 12px;
+    border: 1px solid transparent; /* Define un borde inicial transparente */
+    outline: none; /* Elimina el contorno predeterminado al hacer focus */
     padding: 5px;
     overflow: hidden;
     resize: none;
     height: 50px;
     line-height: 1.5;
     box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
 }
 .observaciones-container:focus {
-    background-color: #97cef3;
+    background-color: #F4FFC3;
+    box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
     }
     .observaciones-container:hover {
-        background-color: #97cef3;
+        background-color: #F4FFC3;
+        box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
         }
 .btnGeneral:focus {
     background-color: #97cef3;
+    outline: none;
 }
 .btnGeneral:hover {
     background-color: #97cef3;
+    outline: none;
 }
 .btnGeneral {
     width: 70px;
     background-color: #eeeda6;
-    border: none;
+    border: 1px solid transparent;
     padding: 3px 6px;
     border-radius: 10px;
     cursor: pointer;
@@ -75,18 +83,19 @@ body {
     font-family: Arial, sans-serif;
     font-weight: bold;
     transition: 0.3s;
+    
     }
 input:hover {
-    background-color: #cfec2a;
+    background-color: #F4FFC3;
 }
 input:focus {
-    background-color: #9eecf1;
+    background-color: #F4FFC3;
     }
     select:hover {
-        background-color: #cfec2a;
+        background-color: #F4FFC3;
         }
         select:focus {
-            background-color: #9eecf1;
+            background-color: #F4FFC3;
             }
 /* Estilos para los botones habilitados */
 button:enabled {
@@ -100,4 +109,21 @@ button:disabled {
     color: #666;           /* Texto más claro */
     cursor: not-allowed;   /* Cambiar el cursor a "prohibido" */
     opacity: 0.6;          /* Reducir opacidad */
+}
+
+.invisible {
+    display: none;
+}
+
+.contador-tiempo-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
 }

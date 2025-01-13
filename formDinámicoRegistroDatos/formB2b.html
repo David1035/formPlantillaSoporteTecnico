@@ -8,114 +8,140 @@
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
     <style>
-        body {
-    display: grid;
-    justify-content: center;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-.main-container {
-    max-width: 400px;
-    display: grid;
-    justify-content: center;
-    background-color: rgb(250, 253, 255);
-    padding: 20px;
-
-}
-.input-container {
-    width: 95px;
-    height: 16px;
-    border-radius: 5px;
-    border: 1px solid #297e21;
-    
-}
-.select-container {
-    border-radius: 15px;
-    border: 1px solid #297e21;
-    border: none;
-}
-#form-container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    border-radius: 10%;
-}
-
-.observaciones-container {
-    width: 90%;
-    border-radius: 25px;
-    border: 1px solid #297e21;
-    padding: 5px;
-    overflow: hidden;
-    resize: none;
-    height: 50px;
-    line-height: 1.5;
-    box-sizing: border-box;
-}
-.observaciones-container:focus {
-    background-color: #97cef3;
-    }
-    .observaciones-container:hover {
-        background-color: #97cef3;
+                body {
+            display: grid;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-.btnGeneral:focus {
-    background-color: #97cef3;
-}
-.btnGeneral:hover {
-    background-color: #97cef3;
-}
-.btnGeneral {
-    width: 70px;
-    background-color: #eeeda6;
-    border: none;
-    padding: 3px 6px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 15px;
-    color: #297e21;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-decoration: none;
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    transition: 0.3s;
-    }
-input:hover {
-    background-color: #cfec2a;
-}
-input:focus {
-    background-color: #9eecf1;
-    }
-    select:hover {
-        background-color: #cfec2a;
+        .main-container {
+            max-width: 400px;
+            display: grid;
+            justify-content: center;
+            background-color: rgb(250, 253, 255);
+            padding: 20px;
+
         }
-        select:focus {
-            background-color: #9eecf1;
+        .input-container {
+            width: 95px;
+            height: 16px;
+            border-radius: 5px;
+            border: 1px solid #297e21;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
+            
+        }
+        .select-container {
+            border-radius: 15px;
+            border: 1px solid #297e21;
+            border: none;
+        }
+        .form-container-class {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 10%;
+        }
+
+        .observaciones-container {
+            width: 90%;
+            border-radius: 12px;
+            border: 1px solid transparent; /* Define un borde inicial transparente */
+            outline: none; /* Elimina el contorno predeterminado al hacer focus */
+            padding: 5px;
+            overflow: hidden;
+            resize: none;
+            height: 50px;
+            line-height: 1.5;
+            box-sizing: border-box;
+            box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
+        }
+        .observaciones-container:focus {
+            background-color: #F4FFC3;
+            box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
             }
-/* Estilos para los botones habilitados */
-button:enabled {
-    background-color: #007bff;
-    color: white;
-}
+            .observaciones-container:hover {
+                background-color: #F4FFC3;
+                box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
+                }
+        .btnGeneral:focus {
+            background-color: #97cef3;
+            outline: none;
+        }
+        .btnGeneral:hover {
+            background-color: #97cef3;
+            outline: none;
+        }
+        .btnGeneral {
+            width: 70px;
+            background-color: #eeeda6;
+            border: 1px solid transparent;
+            padding: 3px 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            color: #297e21;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            transition: 0.3s;
+            
+            }
+        input:hover {
+            background-color: #F4FFC3;
+        }
+        input:focus {
+            background-color: #F4FFC3;
+            }
+            select:hover {
+                background-color: #F4FFC3;
+                }
+                select:focus {
+                    background-color: #F4FFC3;
+                    }
+        /* Estilos para los botones habilitados */
+        button:enabled {
+            background-color: #007bff;
+            color: white;
+        }
 
-/* Estilos para los botones deshabilitados */
-button:disabled {
-    background-color: #ccc; /* Color gris para indicar que está deshabilitado */
-    color: #666;           /* Texto más claro */
-    cursor: not-allowed;   /* Cambiar el cursor a "prohibido" */
-    opacity: 0.6;          /* Reducir opacidad */
-}
+        /* Estilos para los botones deshabilitados */
+        button:disabled {
+            background-color: #ccc; /* Color gris para indicar que está deshabilitado */
+            color: #666;           /* Texto más claro */
+            cursor: not-allowed;   /* Cambiar el cursor a "prohibido" */
+            opacity: 0.6;          /* Reducir opacidad */
+        }
+
+        .invisible {
+            display: none;
+        }
+
+        .contador-tiempo-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
+        }
     </style>
 </head>
 <body>
     <main class="main-container">
-        <form action="" id="form-container">
+        <form action="" id="form-container" class="form-container-class">
             <button id="btnInicio" class="btnGeneral">INICIO</button>
 
             <label for="id-llamada">Id</label>
@@ -132,303 +158,289 @@ button:disabled {
             <textarea id="observaciones" class="observaciones-container"></textarea>
 
             <label for="tecnology">Tecnology</label>
-            <select name="tecnology" id="tecnology" class="select-container">
-                
-            </select>
+            <select name="tecnology" id="tecnology" class="select-container"></select>
             <label for="tipoServicio">Tigo</label>
-            <select name="tipoServicio" id="tipoServicio" class="select-container">
-            </select>
+            <select name="tipoServicio" id="tipoServicio" class="select-container"></select>
             <label for="naturaleza">Falla</label>
-            <select name="naturaleza" id="naturaleza" class="select-container">
-                <option value="default">GPON</option>
-            </select>
+            <select name="naturaleza" id="naturaleza" class="select-container"></select>
+            
             <label for="actualizacion-datos">Datos</label>
             <select name="actualizacion-datos" id="actualizacion-datos" class="select-container">
-                
+                <option value="no">No</option>
+                <option value="si">Si</option>
             </select>
             <label for="guion-agendamiento">Guion</label>
             <select name="guion-agendamiento" id="guion-agendamiento" class="select-container">
-                
+                <option value="no">No</option>
+                <option value="si">Si</option>
             </select>
             <label for="modo-back">Back</label>
             <select name="modo-back" id="modo-back" class="select-container">
-                
+                <option value="no">No</option>
+                <option value="si">Si</option>
             </select>
 
 
-            <button id="btnCopiar" class="btnGeneral">COPIAR</button>
-            <button id="btnEnviar" class="btnGeneral">ENVIAR</button>
+            
             
             
             <label for="celular">Teléfono</label>
             <input type="text" id="celular" class="input-container">
 
             <label for="horario-b2b">¿Horario de B2B?</label>
-            <select name="horario-b2b" id="horario-b2b" class="select-container">            </select>
+            <select name="horario-b2b" id="horario-b2b" class="select-container">
+                <option value="no">No</option>
+                <option value="si">Si</option>
+            </select>
 
-            <label for="quien-atiende">Atiende</label>
-            <input type="text" id="quien-atiende" class="input-container">
-            <label for="telefono-atiende">Celular</label>
-            <input type="text" id="telefono-atiende" class="input-container">
+            <div id="horario-b2b-invisible" class="form-container-class invisible">
+                <label for="atiende-b2b">Atiende</label>
+            <input type="text" id="atiende-b2b" class="input-container">
+            <label for="celular-b2b">Celular</label>
+            <input type="text" id="celular-b2b" class="input-container">
+            
+            
             <label for="dias-atencion">Dias Atiende</label>
             <select name="dias-atencion" id="dias-atencion" class="select-container">
-                <option value="si">Lunes a Viernes</option>
-                <option value="si">Lunes a Sábado</option>
-                <option value="si">Lunes a Domingo</option>
+                <option value="Lunes a Viernes">Lunes a Viernes</option>
+                <option value="Lunes a Sábado">Lunes a Sábado</option>
+                <option value="Lunes a Domingo">Lunes a Domingo</option>
             </select>
             <label for="horario-atencion">Horario</label>
             <input type="text" id="horario-atencion" class="input-container">
+            </div>
             
+            <button id="btnCopiar" class="btnGeneral">COPIAR</button>
+            <button id="btnEnviar" class="btnGeneral">ENVIAR</button>
 
         </form>
-        <p id="totalTiempoText"></p>
-        <button id="localStorageButton" class="btnGeneral">Borrar datos </button>
+        <h1 id="datos-copiados" class="datos-copiados"></h1>
+        <p id="totalTiempoText" class="contador-tiempo-container"></p>
+        <button id="localStorageButton" class="btnGeneral">Borrar promedio</button>
     </main>
     <script>
-        let horaInicial;
-let dataHora = '';
-let horaFinal;
-const btnInicio = document.getElementById('btnInicio')
-const observacionesText = document.getElementById('observaciones');
-const btnCopiar = document.getElementById('btnCopiar')
-const btnEnviar = document.getElementById('btnEnviar')
-const selectTecnology = document.getElementById('tecnology');
-const selectTipoServicio = document.getElementById('tipoServicio');
-const selectNaturaleza = document.getElementById('naturaleza');
+                let horaInicial;
+        let horaFinal;
+        const btnInicio = document.getElementById('btnInicio')
+        const observacionesText = document.getElementById('observaciones');
+        const btnCopiar = document.getElementById('btnCopiar')
+        const btnEnviar = document.getElementById('btnEnviar')
+        const selectTecnology = document.getElementById('tecnology');
+        const selectTipoServicio = document.getElementById('tipoServicio');
+        const selectNaturaleza = document.getElementById('naturaleza');
+        const idLlamada = document.getElementById('id-llamada');
 
 
 
-btnInicio.addEventListener('click', function(event) {
-    event.preventDefault();
-    horaInicial = new Date();
-    insertarTexto()
-    btnInicio.disabled = true;
-    idLlamada.focus()
+        btnInicio.addEventListener('click', function(event) {
+            event.preventDefault();
+            horaInicial = new Date();
+            insertarTexto()
+            btnInicio.disabled = true;
+            idLlamada.focus()
 
-})
-
-
-observacionesText.addEventListener('input', () => {
-    observacionesText.style.height = 'auto';
-    observacionesText.style.height = `${observacionesText.scrollHeight}px`;
-});
+        })
 
 
-
-btnCopiar.addEventListener('click', function(event) {
-    event.preventDefault()
-    console.log(horaInicial)
-    copiarDatos()
-    btnEnviar.focus()
-})
-
-
-
-btnEnviar.addEventListener('click', function(event) {
-    event.preventDefault()
-    if(horaInicial){
-        calcularTiempo()
-        btnInicio.disabled = false;
-        limpiarDatosForm()
-    } else{
-        limpiarDatosForm()
-    }
-    btnInicio.focus()
-})
-
-function calcularTiempo() {
-    horaFinal = new Date();
-    console.log(horaFinal)
-    const diferenciaMilisegundos = horaFinal - horaInicial;
-    const diferenciaSegundos = Math.floor(diferenciaMilisegundos / 1000);
-
-    let tiempoTotal = parseInt(localStorage.getItem('datos')) || 0;
-    tiempoTotal += diferenciaSegundos;
-    localStorage.setItem('datos', tiempoTotal)
-
-    let counter = parseInt(localStorage.getItem('counter') || 0);
-    counter++;
-    localStorage.setItem('counter', counter)
-}
-
-function insertarTexto () {
-    const totalTiempotext = document.getElementById('totalTiempoText')
-    
-    const totalPrueba = parseInt(localStorage.getItem('datos'))
-    const counter = parseInt(localStorage.getItem('counter'))
-    if(totalPrueba > 0) {
-        totalTiempotext.textContent = `Promedio segundos ${(totalPrueba/counter).toFixed()} y en minutos ${((totalPrueba/60)/counter).toFixed(1)}`;
-        } else {
-            totalTiempotext.textContent = '0'
-            }
-}
-
-const localStorageButton = document.getElementById('localStorageButton').addEventListener('click', function(event) {
-    event.preventDefault()
-    localStorage.clear()
-    insertarTexto()
-    })
-
-function copiarDatos () {
-    const idLlamada = document.getElementById('id-llamada')
-    const smnet = document.getElementById('smnet')
-    const observaciones = document.getElementById('observaciones')
-    const tecnology = document.getElementById('tecnology');
-    const tipoServicio = document.getElementById('tipoServicio')
-    const naturaleza = document.getElementById('naturaleza')
-    const horarioB2B = document.getElementById('horario-b2b')
-    const quienAtiende = document.getElementById('quien-atende')
-    const telefonoAtiende = document.getElementById('telefono-atende')
-    const diasAtencion = document.getElementById('dias-atencion')
-    const horarioAtencion = document.getElementById('horario-atencion')
-    const documento = document.getElementById('documentoIdentidad')
-
-    if(horarioB2B.value === 'Si'){
-        const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología ${tecnology.value}, tipo de servicio ${tipoServicio.value}, naturaleza ${naturaleza.value}. Aplica horario B2B, atiende ${quienAtiende.value}, celular de quién atiende ${telefonoAtiende.value}, días de atención ${diasAtencion.value}, horario de atención ${horarioAtencion.value}, documento ${documento.value}`;
-        return navigator.clipboard.writeText(plantillaCreada)
-    } else {
-        const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología ${tecnology.value}, tipo de servicio ${tipoServicio.value}, naturaleza ${naturaleza.value}, documento ${documento.value}`;
-        return navigator.clipboard.writeText(plantillaCreada)
-        }
-}
-
-function limpiarDatosForm () {
-    document.getElementById('id-llamada').value = '';
-    document.getElementById('smnet').value = '';
-    document.getElementById('observaciones').value = '';
-    document.getElementById('tecnology').value = '';
-    document.getElementById('tipoServicio').value = '';
-    document.getElementById('naturaleza').value = '';
-    document.getElementById('horario-b2b').value = '';
-    document.getElementById('quien-atende').value = '';
-    document.getElementById('telefono-atende').value = '';
-    document.getElementById('dias-atencion').value = '';
-    document.getElementById('horario-atencion').value = '';
-    document.getElementById('documentoIdentidad').value = '';
-    const datos = document.getElementById('actualizacion-datos')
-    datos.value = 'No';
-    const guion = document.getElementById('guion-agendamiento')
-    guion.value = 'No';
-    const back = document.getElementById('modo-back')
-    back.value = 'No';
-    const b2b = document.getElementById('horario-b2b')
-    b2b.value = 'No';
-    
-
-}
-/* TIPO DE SERVICIO Y TECNOLOGIA */
-const opcionesTiposervicio = {
-    'HFC': ['Internet', 'Telefonía', 'TV_Digital', 'One_TV_2.0'],
-    'GPON': ['Internet', 'IPTV', 'Telefonía', 'One_TV_2.0'],
-    'ADSL': ['Internet', 'IPTV', 'Telefonía', 'One_TV_2.0']
-}
-const opcionesNaturaleza = {
-    'Internet': ['No navega', 'Navegación Lenta', 'Servicio Intermitente', 'Problemas WiFi'],
-    'Telefonía': ['No funciona línea telefónica', 'Servicio Intermitente', 'Mala Calidad Voz / Entrecortada', 'Ingresa llamada de otra línea', 'No salen ni entran llamadas'],
-    'TV_Digital': ['Sin señal', 'Tv no visualiza algunos canales', 'Mala calidad de imagen', 'Fallas en audio / subtítulos', 'Problemas con paquetes adicionales', 'Problemas con control remoto'],
-    'IPTV': ['Sin señal', 'Tv no visualiza algunos canales', 'Mala calidad de imagen', 'Fallas en audio / subtítulos', 'Problemas con paquetes adicionales', 'Problemas con control remoto'],
-    'One_TV_2.0': ['Sin señal', 'DRM falló', 'Imagen congelada / TV pixelada', 'Problemas de audio', 'Error de descarga', 'Problemas en comando de voz', 'Configuración de control', 'Problemas app One TV', 'Servicio intermitente']
-};
-
-// Cargar opciones de tecnología
-function cargarOpcionesTecnology() {
-    Object.keys(opcionesTiposervicio).forEach((tecnology, index) => {
-        const option = document.createElement('option');
-        option.value = tecnology;
-        option.textContent = tecnology;
-        if (index === 0) option.selected = true; // Seleccionar el primer hijo por defecto
-        selectTecnology.appendChild(option);
-    });
-}
-
-// Filtrar y cargar tipos de servicio
-function cargarOpcionesTipoServicio(tecnology) {
-    // Limpiar el select antes de agregar opciones
-    selectTipoServicio.innerHTML = '';
-    const servicios = opcionesTiposervicio[tecnology] || [];
-    servicios.forEach((servicio, index) => {
-        const option = document.createElement('option');
-        option.value = servicio;
-        option.textContent = servicio;
-        if (index === 0) option.selected = true; // Seleccionar el primer hijo por defecto
-        selectTipoServicio.appendChild(option);
-    });
-
-    // Cargar naturaleza por defecto para el primer servicio
-    const primerTipoServicio = servicios[0] || null;
-    if (primerTipoServicio) {
-        cargarOpcionesNaturaleza(primerTipoServicio);
-    }
-}
-
-// Cargar opciones de naturaleza
-function cargarOpcionesNaturaleza(tipoServicio) {
-    // Limpiar el select antes de agregar opciones
-    selectNaturaleza.innerHTML = '';
-    const naturalezas = opcionesNaturaleza[tipoServicio] || [];
-    naturalezas.forEach((naturaleza, index) => {
-        const option = document.createElement('option');
-        option.value = naturaleza;
-        option.textContent = naturaleza;
-        if (index === 0) option.selected = true; // Seleccionar el primer hijo por defecto
-        selectNaturaleza.appendChild(option);
-    });
-}
-
-// Eventos
-selectTecnology.addEventListener('change', (event) => {
-    const tecnologiaSeleccionada = event.target.value;
-    cargarOpcionesTipoServicio(tecnologiaSeleccionada);
-});
-
-selectTipoServicio.addEventListener('change', (event) => {
-    const tipoServicioSeleccionado = event.target.value;
-    cargarOpcionesNaturaleza(tipoServicioSeleccionado);
-});
-
-// Inicialización
-function inicializarSelects() {
-    cargarOpcionesTecnology();
-    const tecnologiaSeleccionada = selectTecnology.value;
-    cargarOpcionesTipoServicio(tecnologiaSeleccionada);
-}
-
-inicializarSelects();
-
-/* Actualización datos guion entre otros dinámico */
-// Listado de opciones comunes para los select
-const opciones = [
-    { value: 'no', text: 'No' },
-    { value: 'si', text: 'Si' }
-];
-
-// IDs de los select en los que deseas añadir las opciones
-const selectIDs = ['actualizacion-datos', 'guion-agendamiento', 'modo-back', 'horario-b2b'];
-
-// Función para cargar las opciones dinámicamente
-function cargarOpcionesDinamicas() {
-    selectIDs.forEach((selectID) => {
-        const selectElement = document.getElementById(selectID);
-
-        // Asegurarse de que el select esté vacío antes de añadir opciones
-        selectElement.innerHTML = '';
-
-        // Añadir opciones dinámicamente
-        opciones.forEach((opcion) => {
-            const optionElement = document.createElement('option');
-            optionElement.value = opcion.value;
-            optionElement.textContent = opcion.text;
-            selectElement.appendChild(optionElement);
+        observacionesText.addEventListener('input', () => {
+            observacionesText.style.height = 'auto';
+            observacionesText.style.height = `${observacionesText.scrollHeight}px`;
         });
 
-        // Seleccionar la opción predeterminada ("No" en este caso)
-        selectElement.value = 'no';
-    });
-}
 
-// Llamar a la función para cargar las opciones
-document.addEventListener('DOMContentLoaded', cargarOpcionesDinamicas);
 
+        btnCopiar.addEventListener('click', function(event) {
+            event.preventDefault()
+            console.log(horaInicial)
+            copiarDatos()
+            btnEnviar.focus()
+        })
+
+
+
+        btnEnviar.addEventListener('click', function(event) {
+            event.preventDefault()
+            if(horaInicial){
+                calcularTiempo()
+                btnInicio.disabled = false;
+                limpiarDatosForm()
+                insertarTexto()
+                console.log(`la hora final es ${horaFinal}`)
+            } else{
+                limpiarDatosForm()
+                insertarTexto()
+            }
+            btnInicio.focus()
+        })
+
+        function calcularTiempo() {
+            horaFinal = new Date();
+            console.log(horaFinal)
+            const diferenciaMilisegundos = horaFinal - horaInicial;
+            const diferenciaSegundos = Math.floor(diferenciaMilisegundos / 1000);
+
+            let tiempoTotal = parseInt(localStorage.getItem('datos')) || 0;
+            tiempoTotal += diferenciaSegundos;
+            localStorage.setItem('datos', tiempoTotal)
+
+            let counter = parseInt(localStorage.getItem('counter') || 0);
+            counter++;
+            localStorage.setItem('counter', counter)
+        }
+
+        function insertarTexto() {
+            const totalTiempotext = document.getElementById('totalTiempoText')
+            
+            const totalPrueba = parseInt(localStorage.getItem('datos'))
+            const counter = parseInt(localStorage.getItem('counter'))
+            if(totalPrueba > 0) {
+                totalTiempotext.textContent = `Promedio segundos ${(totalPrueba/counter).toFixed()} y en minutos ${((totalPrueba/60)/counter).toFixed(1)}`;
+                } else {
+                    totalTiempotext.textContent = '0'
+                    }
+        }
+        insertarTexto()
+
+        const localStorageButton = document.getElementById('localStorageButton').addEventListener('click', function(event) {
+            event.preventDefault()
+            localStorage.clear()
+            insertarTexto()
+            })
+
+        function copiarDatos () {
+            const smnet = document.getElementById('smnet')
+            const observaciones = document.getElementById('observaciones')
+            const tecnology = document.getElementById('tecnology');
+            const tipoServicio = document.getElementById('tipoServicio')
+            const naturaleza = document.getElementById('naturaleza')
+            const horarioB2B = document.getElementById('horario-b2b')
+            const atiendeB2b = document.getElementById('atiende-b2b')
+            const celularB2b = document.getElementById('celular-b2b')
+            const diasAtencion = document.getElementById('dias-atencion')
+            const horarioAtencion = document.getElementById('horario-atencion')
+            const documento = document.getElementById('documentoIdentidad')
+            const cel = document.getElementById('celular')
+
+            if(horarioB2B.value === 'si'){
+                const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: ${atiendeB2b.value}, celular ${celularB2b.value}, días de atención ${diasAtencion.value}, en el horario ${horarioAtencion.value}, documento: ${documento.value}`;
+                return navigator.clipboard.writeText(plantillaCreada)
+            } else {
+                const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}, cel: ${cel.value}`;
+                return navigator.clipboard.writeText(plantillaCreada)
+                }
+        }
+
+        function limpiarDatosForm () {
+            document.getElementById('id-llamada').value = '';
+            document.getElementById('smnet').value = '';
+            document.getElementById('observaciones').value = '';
+            document.getElementById('tecnology').value = '';
+            document.getElementById('tipoServicio').value = '';
+            document.getElementById('naturaleza').value = '';
+            document.getElementById('celular').value = '';
+            document.getElementById('horario-b2b').value = 'no';
+            document.getElementById('documentoIdentidad').value = '';
+            document.getElementById('atiende-b2b').value = '';
+            document.getElementById('celular-b2b').value = '';
+            document.getElementById('dias-atencion').value = 'Lunes a Viernes';
+            document.getElementById('actualizacion-datos').value = 'no';
+            document.getElementById('guion-agendamiento').value = 'no';
+            document.getElementById('modo-back').value = 'no';
+            
+        }
+
+        // Dinamica form
+                /* TIPO DE SERVICIO Y TECNOLOGIA me falta crear la lógica*/
+                const opcionesTiposervicio = {
+            'HFC': ['Internet', 'Telefonía', 'TV_Digital', 'One_TV_2.0'],
+            'GPON': ['Internet', 'IPTV', 'Telefonía', 'One_TV_2.0'],
+            'ADSL': ['Internet', 'IPTV', 'Telefonía', 'One_TV_2.0']
+        }
+        const opcionesNaturaleza = {
+            'Internet': ['No navega', 'Navegación Lenta', 'Servicio Intermitente', 'Problemas WiFi'],
+            'Telefonía': ['No funciona línea telefónica', 'Servicio Intermitente', 'Mala Calidad Voz / Entrecortada', 'Ingresa llamada de otra línea', 'No salen ni entran llamadas'],
+            'TV_Digital': ['Sin señal', 'Tv no visualiza algunos canales', 'Mala calidad de imagen', 'Fallas en audio / subtítulos', 'Problemas con paquetes adicionales', 'Problemas con control remoto'],
+            'IPTV': ['Sin señal', 'Tv no visualiza algunos canales', 'Mala calidad de imagen', 'Fallas en audio / subtítulos', 'Problemas con paquetes adicionales', 'Problemas con control remoto'],
+            'One_TV_2.0': ['Sin señal', 'DRM falló', 'Imagen congelada / TV pixelada', 'Problemas de audio', 'Error de descarga', 'Problemas en comando de voz', 'Configuración de control', 'Problemas app One TV', 'Servicio intermitente']
+        };
+
+        // Cargar opciones de tecnología
+        function cargarOpcionesTecnology() {
+            Object.keys(opcionesTiposervicio).forEach((tecnology, index) => {
+                const option = document.createElement('option');
+                option.value = tecnology;
+                option.textContent = tecnology;
+                if (index === 0) option.selected = true; // Seleccionar el primer hijo por defecto
+                selectTecnology.appendChild(option);
+            });
+        }
+
+        // Filtrar y cargar tipos de servicio
+        function cargarOpcionesTipoServicio(tecnology) {
+            // Limpiar el select antes de agregar opciones
+            selectTipoServicio.innerHTML = '';
+            const servicios = opcionesTiposervicio[tecnology] || [];
+            servicios.forEach((servicio, index) => {
+                const option = document.createElement('option');
+                option.value = servicio;
+                option.textContent = servicio;
+                if (index === 0) option.selected = true; // Seleccionar el primer hijo por defecto
+                selectTipoServicio.appendChild(option);
+            });
+
+            // Cargar naturaleza por defecto para el primer servicio
+            const primerTipoServicio = servicios[0] || null;
+            if (primerTipoServicio) {
+                cargarOpcionesNaturaleza(primerTipoServicio);
+            }
+        }
+
+        // Cargar opciones de naturaleza
+        function cargarOpcionesNaturaleza(tipoServicio) {
+            // Limpiar el select antes de agregar opciones
+            selectNaturaleza.innerHTML = '';
+            const naturalezas = opcionesNaturaleza[tipoServicio] || [];
+            naturalezas.forEach((naturaleza, index) => {
+                const option = document.createElement('option');
+                option.value = naturaleza;
+                option.textContent = naturaleza;
+                if (index === 0) option.selected = true; // Seleccionar el primer hijo por defecto
+                selectNaturaleza.appendChild(option);
+            });
+        }
+
+        // Eventos
+        selectTecnology.addEventListener('change', (event) => {
+            const tecnologiaSeleccionada = event.target.value;
+            cargarOpcionesTipoServicio(tecnologiaSeleccionada);
+        });
+
+        selectTipoServicio.addEventListener('change', (event) => {
+            const tipoServicioSeleccionado = event.target.value;
+            cargarOpcionesNaturaleza(tipoServicioSeleccionado);
+        });
+
+        // Inicialización
+        function inicializarSelects() {
+            cargarOpcionesTecnology();
+            const tecnologiaSeleccionada = selectTecnology.value;
+            cargarOpcionesTipoServicio(tecnologiaSeleccionada);
+        }
+
+        inicializarSelects();
+
+        /*Cambiar de forma dinámica b2b */
+
+        const dinamicB2bInvisible = document.getElementById('horario-b2b');
+            dinamicB2bInvisible.addEventListener('change', function (){
+                if(dinamicB2bInvisible.value === 'si'){
+                    const invisible = document.getElementById('horario-b2b-invisible');
+                    invisible.style.display = 'block';
+                }else {
+                    const invisible = document.getElementById('horario-b2b-invisible');
+                    invisible.style.display = 'none';
+                }
+            });     
     </script>
 </body>
 </html>
