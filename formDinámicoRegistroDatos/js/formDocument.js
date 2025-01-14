@@ -6,6 +6,7 @@ let fecha;
 let interval; // Variable para el intervalo
 let startTime; // Tiempo de inicio del contador
 let isRunning = false; // Estado del contador
+let aht = ''
 const btnInicio = document.getElementById('btnInicio')
 const observacionesText = document.getElementById('observaciones');
 const btnCopiar = document.getElementById('btnCopiar')
@@ -81,7 +82,8 @@ function insertarTexto() {
     const totalPrueba = parseInt(localStorage.getItem('datos'))
     const counter = parseInt(localStorage.getItem('counter'))
     if(totalPrueba > 0) {
-        totalTiempotext.textContent = `Promedio segundos ${(totalPrueba/counter).toFixed()} y en minutos ${((totalPrueba/60)/counter).toFixed(1)}`;
+        aht = `AHT: ${(totalPrueba/counter).toFixed()}, Min ${((totalPrueba/60)/counter).toFixed(1)}`
+        totalTiempotext.textContent = aht;
         } else {
             totalTiempotext.textContent = '0'
             }
@@ -177,9 +179,9 @@ function descargarDatos() {
     let plantillaCreada;
 
     if (horarioB2B.value === 'si') {
-        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}`;
+        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}, ${aht}`;
     } else {
-        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}, cel: ${cel.value}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}`;
+        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}, cel: ${cel.value}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}, ${aht}`;
     }
 
     // Crear un archivo con el contenido de la plantilla
