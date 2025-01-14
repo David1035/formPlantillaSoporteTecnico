@@ -241,7 +241,6 @@ function startCounter() {
             nextAlarmTime += 140; // Actualiza para la siguiente alarma
         }
 
-        console.log(`Tiempo transcurrido: ${elapsedTime.toFixed(1)} segundos`);
     }, 100); // Actualización precisa cada 100ms
 }
 
