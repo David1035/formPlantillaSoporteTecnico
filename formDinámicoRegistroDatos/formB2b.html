@@ -223,6 +223,10 @@
         let horaFinal;
         let hora;
         let fecha;
+        // Extensión para manejar el contador con alarmas
+        let interval; // Variable para el intervalo
+        let startTime; // Tiempo de inicio del contador
+        let isRunning = false; // Estado del contador
         const btnInicio = document.getElementById('btnInicio')
         const observacionesText = document.getElementById('observaciones');
         const btnCopiar = document.getElementById('btnCopiar')
@@ -240,6 +244,8 @@
             insertarTexto()
             hora = horaInicial.toTimeString().split(' ')[0]; // solo hora
             fecha = horaInicial.toISOString().split('T')[0]; // solo fecha
+            console.log(hora);
+            startCounter()
             btnInicio.disabled = true;
             btnEnviar.disabled = false;
             idLlamada.focus()
@@ -490,6 +496,62 @@
             document.body.appendChild(enlace);
             enlace.click();
             document.body.removeChild(enlace);
+        }
+
+        // Función para reproducir un sonido genérico
+        function playSound(frequency = 440, duration = 1000) {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+        
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+        
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+        
+            oscillator.start();
+            setTimeout(() => {
+                oscillator.stop();
+                audioContext.close();
+            }, duration);
+        }
+
+        // Función para iniciar el contador
+        function startCounter() {
+            if (isRunning) return; // Evita múltiples inicios
+            isRunning = true;
+        
+            startTime = Date.now();
+            let hasPlayedInitialAlarm = false;
+            let nextAlarmTime = 60; // Primera alarma a los 60 segundos
+        
+            interval = setInterval(() => {
+                const elapsedTime = (Date.now() - startTime) / 1000; // Tiempo transcurrido en segundos
+            
+                // Alarma inicial a los 60 segundos
+                if (!hasPlayedInitialAlarm && elapsedTime >= 60) {
+                    playSound(); // Reproduce el sonido
+                    hasPlayedInitialAlarm = true;
+                    nextAlarmTime = 200; // Configura la siguiente alarma a los 200 segundos (60 + 140)
+                }
+            
+                // Alarmas repetitivas cada 140 segundos
+                if (elapsedTime >= nextAlarmTime) {
+                    playSound(); // Reproduce el sonido
+                    nextAlarmTime += 140; // Actualiza para la siguiente alarma
+                }
+            
+                console.log(`Tiempo transcurrido: ${elapsedTime.toFixed(1)} segundos`);
+            }, 100); // Actualización precisa cada 100ms
+        }
+
+
+        // Función para detener el contador
+        function stopCounter() {
+            clearInterval(interval);
+            isRunning = false;
         }
     </script>
 </body>
