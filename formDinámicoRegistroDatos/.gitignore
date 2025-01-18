@@ -1,5 +1,0 @@
-#ocultar modulos en js
-/node_modules
-
-#ocultar db .db
-/db
