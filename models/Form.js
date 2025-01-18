@@ -13,7 +13,9 @@ const Form = sequelize.define('Form', {
     tipoPlantilla: {type: DataTypes.STRING, allowNull: true}
 })
 
-module.exports = Form;  //exportando el modelo Form para que se pueda utilizar en otros archivos.  //
+module.exports = Form;  
+
+//exportando el modelo Form para que se pueda utilizar en otros archivos.  //
 //  export default Form;  //exportando el modelo Form para que se pueda utilizar en otros
 // archivos.  //  export {Form} from './Form';  //exportando el modelo
 // Form para que se pueda utilizar en otros archivos.  //  export {default as Form}
