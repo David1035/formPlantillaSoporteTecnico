@@ -170,6 +170,11 @@ function limpiarDatosForm () {
     document.getElementById('guion-agendamiento').value = 'no';
     document.getElementById('modo-back').value = 'no';
     ocultarB2b()
+    function reiniciarObservarciones () {
+        const observaciones = document.getElementById('observaciones')
+        observaciones.style.height = 'auto';
+    }
+    reiniciarObservarciones()
     
 }
 

@@ -7,6 +7,7 @@ body {
 }
 .main-container {
     max-width: 400px;
+    margin-top: 60px;
     display: grid;
     justify-content: center;
     background-color: rgb(250, 253, 255);
@@ -120,7 +121,7 @@ button:disabled {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
+    margin-top: 50px;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
