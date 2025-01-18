@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const { getAllForm } = require('../controllers/formController')
 
-router.get('/data', (req, res) => {
-    res.json({message: 'Hello, World!'});
-})
+router.get('forms', getAllForm)
 
 module.exports = router;
