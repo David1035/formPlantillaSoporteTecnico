@@ -3,6 +3,8 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const path = require('path')
 const apiRoutes = require('./routes/api')
+const sequelize = require('./config/db')
+const Form = require('./models/Form')
 
 const app = express()
 const port = 5000;
@@ -18,3 +20,10 @@ app.listen(port, () => {
 })
 
 app.use('/api', apiRoutes) // api routes
+
+// crea la bd de datos, si no existe
+sequelize.sync({ force: false })
+    .then(() => {
+        console.log('Base de datos creada')
+    })
+    .catch((err) => console.error('error al sincronizar db ', err))
