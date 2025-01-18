@@ -56,39 +56,72 @@ btnEnviar.addEventListener('click', function(event) {
     } 
     btnInicio.focus()
     descargarDatos()
-    ocultarB2b()
     insertarTexto()
     limpiarDatosForm()
+    stopCounter()
 })
 
 function calcularTiempo() {
     horaFinal = new Date();
     console.log(horaFinal.getHours())
-    const diferenciaMilisegundos = horaFinal - horaInicial;
-    const diferenciaSegundos = Math.floor(diferenciaMilisegundos / 1000);
+    const modoDeTrabajo = document.getElementById('modoDeTrabajo')
 
-    let tiempoTotal = parseInt(localStorage.getItem('datos')) || 0;
-    tiempoTotal += diferenciaSegundos;
-    localStorage.setItem('datos', tiempoTotal)
+    if(modoDeTrabajo.value === 'N2') {
+        const diferenciaMilisegundos = horaFinal - horaInicial;
+        const diferenciaSegundos = Math.floor(diferenciaMilisegundos / 1000);
 
-    let counter = parseInt(localStorage.getItem('counter') || 0);
-    counter++;
-    localStorage.setItem('counter', counter)
+        let tiempoTotal = parseInt(localStorage.getItem('n2')) || 0;
+        tiempoTotal += diferenciaSegundos;
+        localStorage.setItem('n2', tiempoTotal)
+
+        let counter = parseInt(localStorage.getItem('counterN2') || 0);
+        counter++;
+        localStorage.setItem('counterN2', counter)
+    } else {
+        const diferenciaMilisegundos = horaFinal - horaInicial;
+        const diferenciaSegundos = Math.floor(diferenciaMilisegundos / 1000);
+
+        let tiempoTotal = parseInt(localStorage.getItem('n1')) || 0;
+        tiempoTotal += diferenciaSegundos;
+        localStorage.setItem('n1', tiempoTotal)
+
+        let counter = parseInt(localStorage.getItem('counterN1') || 0);
+        counter++;
+        localStorage.setItem('counterN1', counter)
+    }
+    
 }
 
 function insertarTexto() {
+    const modoDeTrabajo = document.getElementById('modoDeTrabajo')
     const totalTiempotext = document.getElementById('totalTiempoText')
-    
-    const totalPrueba = parseInt(localStorage.getItem('datos'))
-    const counter = parseInt(localStorage.getItem('counter'))
-    if(totalPrueba > 0) {
-        aht = `AHT: ${(totalPrueba/counter).toFixed()}, Min ${((totalPrueba/60)/counter).toFixed(1)}`
-        totalTiempotext.textContent = aht;
-        } else {
-            totalTiempotext.textContent = '0'
+    if(modoDeTrabajo.value === 'N2') {
+        const totalPrueba = parseInt(localStorage.getItem('n2'))
+        const counter = parseInt(localStorage.getItem('counterN2'))
+        if(totalPrueba > 0) {
+            aht = `AHT de N2: --- ${(totalPrueba/counter).toFixed()}, Min ${((totalPrueba/60)/counter).toFixed(1)}`
+            totalTiempotext.textContent = aht;
+            } else {
+                totalTiempotext.textContent = '0'
             }
+    } else {
+        const totalPrueba = parseInt(localStorage.getItem('n1'))
+        const counter = parseInt(localStorage.getItem('counterN1'))
+        if(totalPrueba > 0) {
+            aht = `AHT n1: --- ${(totalPrueba/counter).toFixed()}, Min ${((totalPrueba/60)/counter).toFixed(1)}`
+            totalTiempotext.textContent = aht;
+            } else {
+                totalTiempotext.textContent = '0'
+            }
+    }
+    
 }
 insertarTexto()
+function insertarTextDinamico() {
+    const modoDeTrabajo = document.getElementById('modoDeTrabajo')
+    modoDeTrabajo.addEventListener('change' , () => { insertarTexto()})
+}
+insertarTextDinamico()
 
 const localStorageButton = document.getElementById('localStorageButton').addEventListener('click', function(event) {
     event.preventDefault()
@@ -136,6 +169,7 @@ function limpiarDatosForm () {
     document.getElementById('actualizacion-datos').value = 'no';
     document.getElementById('guion-agendamiento').value = 'no';
     document.getElementById('modo-back').value = 'no';
+    ocultarB2b()
     
 }
 
@@ -234,13 +268,13 @@ function startCounter() {
         if (!hasPlayedInitialAlarm && elapsedTime >= 60) {
             playSound(); // Reproduce el sonido
             hasPlayedInitialAlarm = true;
-            nextAlarmTime = 200; // Configura la siguiente alarma a los 200 segundos (60 + 140)
+            nextAlarmTime = 230; // Configura la siguiente alarma a los 200 segundos (60 + 170)
         }
 
         // Alarmas repetitivas cada 140 segundos
         if (elapsedTime >= nextAlarmTime) {
             playSound(); // Reproduce el sonido
-            nextAlarmTime += 140; // Actualiza para la siguiente alarma
+            nextAlarmTime += 170; // Actualiza para la siguiente alarma
         }
 
     }, 100); // Actualización precisa cada 100ms
