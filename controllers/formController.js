@@ -3,9 +3,7 @@ const Form = require('../models/Form')
 //Obtener todos los registros
 const getAllForm = async (req, res) => {
     try {
-        console.log('entrando al getAllForm...')
         const forms = await Form.findAll();
-        console.log('registros encontrados')
         res.json(forms)
     } catch (error) {
         res.status(500).json({ message: error.message });

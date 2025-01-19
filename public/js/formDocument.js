@@ -2,6 +2,7 @@ let horaInicial;
 let horaFinal;
 let hora;
 let fecha;
+let tiempoTotal;
 // Extensión para manejar el contador con alarmas
 let interval; // Variable para el intervalo
 let startTime; // Tiempo de inicio del contador
@@ -55,11 +56,69 @@ btnEnviar.addEventListener('click', function(event) {
         btnInicio.disabled = false;
     } 
     btnInicio.focus()
-    descargarDatos()
-    insertarTexto()
-    limpiarDatosForm()
     stopCounter()
+    insertarTexto()
+    enviarDatosAlServidor()
+    limpiarDatosForm()
 })
+
+async function enviarDatosAlServidor() {
+    const smnet = document.getElementById('smnet');
+    const observaciones = document.getElementById('observaciones');
+    const tecnology = document.getElementById('tecnology');
+    const tipoServicio = document.getElementById('tipoServicio');
+    const naturaleza = document.getElementById('naturaleza');
+    const horarioB2B = document.getElementById('horario-b2b');
+    const atiendeB2b = document.getElementById('atiende-b2b');
+    const celularB2b = document.getElementById('celular-b2b');
+    const diasAtencion = document.getElementById('dias-atencion');
+    const horarioAtencion = document.getElementById('horario-atencion');
+    const documento = document.getElementById('documentoIdentidad');
+    const cel = document.getElementById('celular');
+    const actualizacion = document.getElementById('actualizacion-datos');
+    const guion = document.getElementById('guion-agendamiento');
+    const modo = document.getElementById('modo-back');
+    const actualizacionDatos = `¿Actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}`
+
+    let plantillaCreada;
+
+    if (horarioB2B.value === 'si') {
+        plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada: ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento o Nit: ${documento.value}`;
+    } else {
+        plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}, cel: ${cel.value}`;
+    }
+
+    const data = {
+        idLlamada: idLlamada.value,
+        name: document.getElementById('name').value,
+        documentoIdentidad: documento.value,
+        observaciones: plantillaCreada,
+        actualizacionDatos: actualizacionDatos,
+        fecha: fecha,
+        hora: hora,
+        tiempoPromedio: tiempoTotal,
+        tipoPlantilla: document.getElementById('modoDeTrabajo').value
+    }
+
+    //Enviar datos al servidor 
+    try {
+        const response = await fetch('http://localhost:5000/api/forms/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }, 
+            body: JSON.stringify(data),
+        })
+        if(response.ok) {
+            const result = await response.json()
+            console.log('Datos enviados con éxito ', result)
+        } else {
+            console.log('Error al enviar datos', response.statusText)
+        }
+    } catch (error) {
+        console.error('Error al enviar los datos al servidor', error)
+    }
+}
 
 function calcularTiempo() {
     horaFinal = new Date();
@@ -70,53 +129,71 @@ function calcularTiempo() {
         const diferenciaMilisegundos = horaFinal - horaInicial;
         const diferenciaSegundos = Math.floor(diferenciaMilisegundos / 1000);
 
-        let tiempoTotal = parseInt(localStorage.getItem('n2')) || 0;
-        tiempoTotal += diferenciaSegundos;
-        localStorage.setItem('n2', tiempoTotal)
+        tiempoTotal = diferenciaSegundos//parseInt(localStorage.getItem('n2')) || 0;
+        //tiempoTotal += diferenciaSegundos;
+        //localStorage.setItem('n2', tiempoTotal)
 
-        let counter = parseInt(localStorage.getItem('counterN2') || 0);
-        counter++;
-        localStorage.setItem('counterN2', counter)
+        //let counter = parseInt(localStorage.getItem('counterN2') || 0);
+        //counter++;
+        //localStorage.setItem('counterN2', counter)
     } else {
         const diferenciaMilisegundos = horaFinal - horaInicial;
         const diferenciaSegundos = Math.floor(diferenciaMilisegundos / 1000);
 
-        let tiempoTotal = parseInt(localStorage.getItem('n1')) || 0;
-        tiempoTotal += diferenciaSegundos;
-        localStorage.setItem('n1', tiempoTotal)
+        tiempoTotal = diferenciaSegundos //parseInt(localStorage.getItem('n1')) || 0;
+        //tiempoTotal += diferenciaSegundos;
+        //localStorage.setItem('n1', tiempoTotal)
 
-        let counter = parseInt(localStorage.getItem('counterN1') || 0);
-        counter++;
-        localStorage.setItem('counterN1', counter)
+        //let counter = parseInt(localStorage.getItem('counterN1') || 0);
+        //counter++;
+        //localStorage.setItem('counterN1', counter)
     }
     
 }
 
-function insertarTexto() {
+async function insertarTexto() {
     const modoDeTrabajo = document.getElementById('modoDeTrabajo')
     const totalTiempotext = document.getElementById('totalTiempoText')
-    if(modoDeTrabajo.value === 'N2') {
-        const totalPrueba = parseInt(localStorage.getItem('n2'))
-        const counter = parseInt(localStorage.getItem('counterN2'))
-        if(totalPrueba > 0) {
-            aht = `AHT de N2: --- ${(totalPrueba/counter).toFixed()}, Min ${((totalPrueba/60)/counter).toFixed(1)}`
+    let tiempoTotal = 0;
+    let counter = 0;
+
+    try {
+        // realizar la solicitud a la Api para obtener los registros 
+        const response = fetch('hppt://localhost:5000/api/forms')
+        if(!response) {
+            throw new ('Error al obtener los datos ', response.statusText)
+        }
+
+        const data = (await response).json()
+
+        //Filtrar datos según el modo de trabajo seleccionado N1 o N2
+        if(modoDeTrabajo.value === 'N2'){
+            const registrosN2 = data.filter(registro => registro.modoDeTrabajo === 'N2')
+            tiempoTotal = registrosN2.reduce((acc, curr) => acc + curr.tiempoPromedio, 0) // sumar el tiempo promedio
+            counter = registrosN2.length() // contar el número de registros
+        } else {
+            const registrosN1 = data.filter(registro => registro.modoDeTrabajo === 'N1')
+            tiempoTotal = registrosN1.reduce((acc, curr) => acc + curr.tiempoPromedio, 0) // sumar el tiempo promedio
+            counter = registrosN1.length() // contar el número de registros
+        }
+
+        //calcular AHT
+        if(tiempoTotal > 0 && counter > 0){
+            const promedio = tiempoTotal / counter;
+            const aht = `AHT de ${modoDeTrabajo.value}: --- ${promedio.toFixed()}, Min ${((promedio / 60).toFixed(1))}`;
             totalTiempotext.textContent = aht;
-            } else {
-                totalTiempotext.textContent = '0'
-            }
-    } else {
-        const totalPrueba = parseInt(localStorage.getItem('n1'))
-        const counter = parseInt(localStorage.getItem('counterN1'))
-        if(totalPrueba > 0) {
-            aht = `AHT n1: --- ${(totalPrueba/counter).toFixed()}, Min ${((totalPrueba/60)/counter).toFixed(1)}`
-            totalTiempotext.textContent = aht;
-            } else {
-                totalTiempotext.textContent = '0'
-            }
+        } else {
+            totalTiempotext.textContent = '0';
+        }
+    } catch (error) {
+        console.error('Error al insertar texto:', error);
+        totalTiempotext.textContent = 'Error al cargar datos';
     }
-    
 }
 insertarTexto()
+
+
+
 function insertarTextDinamico() {
     const modoDeTrabajo = document.getElementById('modoDeTrabajo')
     modoDeTrabajo.addEventListener('change' , () => { insertarTexto()})
@@ -198,44 +275,7 @@ function ocultarB2b() {
 }   
 ocultarB2b() 
 
-function descargarDatos() {
-    const smnet = document.getElementById('smnet');
-    const observaciones = document.getElementById('observaciones');
-    const tecnology = document.getElementById('tecnology');
-    const tipoServicio = document.getElementById('tipoServicio');
-    const naturaleza = document.getElementById('naturaleza');
-    const horarioB2B = document.getElementById('horario-b2b');
-    const atiendeB2b = document.getElementById('atiende-b2b');
-    const celularB2b = document.getElementById('celular-b2b');
-    const diasAtencion = document.getElementById('dias-atencion');
-    const horarioAtencion = document.getElementById('horario-atencion');
-    const documento = document.getElementById('documentoIdentidad');
-    const cel = document.getElementById('celular');
-    const actualizacion = document.getElementById('actualizacion-datos');
-    const guion = document.getElementById('guion-agendamiento');
-    const modo = document.getElementById('modo-back');
 
-    let plantillaCreada;
-
-    if (horarioB2B.value === 'si') {
-        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}, ${aht}`;
-    } else {
-        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}, cel: ${cel.value}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}, ${aht}`;
-    }
-
-    // Crear un archivo con el contenido de la plantilla
-    const blob = new Blob([plantillaCreada], { type: 'text/plain' });
-    const enlace = document.createElement('a');
-    enlace.href = URL.createObjectURL(blob);
-
-    // Usar el valor del documento como nombre del archivo
-    enlace.download = `${fecha} ${documento.value || 'descarga'} - ${idLlamada.value || 'sin id'}.txt`;
-
-    // Agregar al DOM, simular clic y remover
-    document.body.appendChild(enlace);
-    enlace.click();
-    document.body.removeChild(enlace);
-}
 
 // Función para reproducir un sonido genérico
 function playSound(frequency = 440, duration = 1000) {
