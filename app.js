@@ -22,7 +22,7 @@ app.listen(port, () => {
 app.use('/api', apiRoutes) // api routes
 
 // crea la bd de datos, si no existe
-sequelize.sync({ force: true })
+sequelize.sync({ force: false })
     .then(() => {
         console.log('Base de datos creada')
     })
