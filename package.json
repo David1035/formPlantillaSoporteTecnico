@@ -1,10 +1,11 @@
 {
-  "name": "app.js",
+  "name": "formPlantillaSoporteTecnico",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "bin": "./app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "pm2 start app.js",
     "pm2": "pm2 start app.js --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,5 +17,15 @@
     "express": "^4.21.2",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7"
+  },
+  "pkg": {
+    "assets": [
+      "public/**/*",
+      "db/database.sqlite"
+    ],
+    "scripts": [
+      "./node_modules/**/*"
+    ],
+    "targets": ["win-x64", "linux-x64", "macos-x64"]
   }
 }
