@@ -5,9 +5,39 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
+/* Estilo general del header */
+.header-container {
+    margin-top: 20px;
+    background-color: #f0f0f0; /* Color de fondo del header */
+    text-align: center; /* Centrar contenido */
+    border-bottom: 2px solid #ddd; /* Borde inferior */
+}
+
+/* Estilo de los enlaces como botones */
+.nav-links a {
+    display: inline-block; /* Hacerlos bloques en línea */
+    margin: 2px; /* Espaciado entre los botones */
+    padding: 5px 10px; /* Espaciado interno del botón */
+    text-decoration: none; /* Eliminar subrayado */
+    color: #333; /* Color del texto */
+    background-color: #e0e0e0; /* Fondo del botón */
+    border: 2px solid #ccc; /* Borde del botón */
+    border-radius: 5px; /* Bordes redondeados */
+    font-weight: bold; /* Texto en negrita */
+    font-size: 16px; /* Tamaño de la fuente */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave */
+}
+
+/* Cambios al pasar el mouse */
+.nav-links a:hover {
+    background-color: #ccc; /* Fondo más oscuro al pasar el mouse */
+    color: #000; /* Color del texto más oscuro */
+    border-color: #bbb; /* Cambiar el color del borde */
+}
+
 .main-container {
     max-width: 400px;
-    margin-top: 60px;
+    margin-top: 40px;
     display: grid;
     justify-content: center;
     background-color: rgb(250, 253, 255);
