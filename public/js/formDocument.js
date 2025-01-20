@@ -162,10 +162,12 @@ async function insertarTexto() {
             const registrosN2 = data.filter(registro => registro.tipoPlantilla === 'N2')
             tiempoTotal = registrosN2.reduce((acc, curr) => acc + curr.tiempoPromedio, 0) // sumar el tiempo promedio
             counter = registrosN2.length // contar el número de registros
+            totalTiempotext.style.backgroundColor = '#D5D2F5';
         } else {
             const registrosN1 = data.filter(registro => registro.tipoPlantilla === 'N1')
             tiempoTotal = registrosN1.reduce((acc, curr) => acc + curr.tiempoPromedio, 0) // sumar el tiempo promedio
             counter = registrosN1.length // contar el número de registros
+            totalTiempotext.style.backgroundColor = '#f9f9f9';
         }
 
         //calcular AHT
@@ -191,12 +193,7 @@ function insertarTextDinamico() {
 }
 insertarTextDinamico()
 
-const localStorageButton = document.getElementById('localStorageButton').addEventListener('click', function(event) {
-    event.preventDefault()
-    localStorage.clear()
-    insertarTexto()
-    })
-
+//Copiar los datos al portapapeles
 function copiarDatos () {
     const smnet = document.getElementById('smnet')
     const observaciones = document.getElementById('observaciones')
