@@ -8,7 +8,7 @@ body {
 /* Estilo general del header */
 .header-container {
     margin-top: 20px;
-    background-color: #f0f0f0; /* Color de fondo del header */
+     /* background-color: #f0f0f0; Color de fondo del header */
     text-align: center; /* Centrar contenido */
     border-bottom: 2px solid #ddd; /* Borde inferior */
 }
@@ -25,6 +25,7 @@ body {
     border-radius: 5px; /* Bordes redondeados */
     font-weight: bold; /* Texto en negrita */
     font-size: 16px; /* Tamaño de la fuente */
+    margin-bottom: 9px;
     transition: background-color 0.3s, color 0.3s; /* Transición suave */
 }
 
@@ -37,7 +38,7 @@ body {
 
 .main-container {
     max-width: 400px;
-    margin-top: 40px;
+    margin-top: 20px;
     display: grid;
     justify-content: center;
     background-color: rgb(250, 253, 255);
