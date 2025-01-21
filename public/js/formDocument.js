@@ -49,7 +49,7 @@ btnCopiar.addEventListener('click', function(event) {
 
 
 
-btnEnviar.addEventListener('click', function(event) {
+btnEnviar.addEventListener('click', async function(event) {
     event.preventDefault()
     if(horaInicial){
         calcularTiempo()
@@ -57,9 +57,13 @@ btnEnviar.addEventListener('click', function(event) {
     } 
     btnInicio.focus()
     stopCounter()
-    enviarDatosAlServidor()
-    insertarTexto()
-    limpiarDatosForm()
+    try {
+        await enviarDatosAlServidor()
+        limpiarDatosForm()
+        insertarTexto()
+    } catch (error) {
+        console.error('Error al enviar los datos al servidor:', error);
+    }
 })
 
 async function enviarDatosAlServidor() {
