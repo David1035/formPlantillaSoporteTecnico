@@ -181,12 +181,11 @@
                 <option value="si">Si</option>
             </select>
 
-
-            
-            
-            
             <label for="celular">Teléfono</label>
             <input type="text" id="celular" class="input-container">
+
+            <label for="correo">email</label>
+            <input type="email" id="correo" class="input-container">
 
             <label for="horario-b2b">¿Horario de B2B?</label>
             <select name="horario-b2b" id="horario-b2b" class="select-container">
@@ -370,9 +369,10 @@ function copiarDatos () {
     const horarioAtencion = document.getElementById('horario-atencion')
     const documento = document.getElementById('documentoIdentidad')
     const cel = document.getElementById('celular')
+    const correo = document.getElementById('correo')
 
     if(horarioB2B.value === 'si'){
-        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}`;
+        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}, correo ${correo}`;
         return navigator.clipboard.writeText(plantillaCreada)
     } else {
         let celular;
@@ -381,7 +381,7 @@ function copiarDatos () {
         } else {
             celular = ''
         }
-        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}${celular}`;
+        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}${celular}, correo ${correo}`;
         return navigator.clipboard.writeText(plantillaCreada)
         }
 }
