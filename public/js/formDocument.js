@@ -213,7 +213,7 @@ function copiarDatos () {
     const cel = document.getElementById('celular')
 
     if(horarioB2B.value === 'si'){
-        const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}`;
+        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada: ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, Doc/NIT: ${documento.value}`;
         return navigator.clipboard.writeText(plantillaCreada)
     } else {
         let celular;
@@ -222,7 +222,7 @@ function copiarDatos () {
         } else {
             celular = ''
         }
-        const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}${celular}`;
+        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada: ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza: ${naturaleza.value}, Doc: ${documento.value}${celular}`;
         return navigator.clipboard.writeText(plantillaCreada)
         }
 }
