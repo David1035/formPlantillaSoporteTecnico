@@ -208,6 +208,16 @@
             </select>
             <label for="horario-atencion">Horario</label>
             <input type="text" id="horario-atencion" class="input-container">
+
+            <!-- Nuevos campos -->
+            <label for="permiso-especial">Si se requiere permiso especial o algún documento (Obligatorio)</label>
+            <input type="text" id="permiso-especial" class="input-container">
+                
+            <label for="horario-especial-sabado">Horario especial día sábado (si es diferente al indicado)</label>
+            <input type="text" id="horario-especial-sabado" class="input-container">
+                
+            <label for="horario-especial-domingo">Horario especial día domingo (si es diferente al indicado)</label>
+            <input type="text" id="horario-especial-domingo" class="input-container">
             </div>
             
             <button id="btnCopiar" class="btnGeneral">COPIAR</button>
@@ -370,6 +380,9 @@ function copiarDatos () {
     const documento = document.getElementById('documentoIdentidad')
     const cel = document.getElementById('celular')
     const correo = document.getElementById('correo')
+    const permisoEspecial = document.getElementById('permiso-especial')
+    const horarioEspecialSabado = document.getElementById('horario-especial-sabado')
+    const horarioEspecialDomingo = document.getElementById('horario-especial-domingo')
 
     if(horarioB2B.value === 'si'){
         let email;
@@ -378,7 +391,7 @@ function copiarDatos () {
         } else {
             email = `, correo: ${correo.value}`
         }
-        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}${email}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}`;
+        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}${email}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, Si se requiere permiso especial o algún documento: ${permisoEspecial}, Horario especial día sábado (si es diferente al indicado): ${horarioEspecialSabado}, Horario especial día domingo (si es diferente al indicado): ${horarioEspecialDomingo} Doc/NIT: ${documento.value}`;
         return navigator.clipboard.writeText(plantillaCreada)
     } else {
         let celular;
@@ -416,6 +429,10 @@ function limpiarDatosForm () {
     document.getElementById('guion-agendamiento').value = 'no';
     document.getElementById('modo-back').value = 'no';
     document.getElementById('correo').value = '';
+    document.getElementById('permiso-especial').value = '';
+    document.getElementById('horario-especial-sabado').value = '';
+    document.getElementById('horario-especial-domingo').value = '';
+
     ocultarB2b()
 
     function reiniciarObservaciones () {
@@ -462,6 +479,9 @@ function descargarDatos() {
     const guion = document.getElementById('guion-agendamiento');
     const modo = document.getElementById('modo-back');
     const email= document.getElementById('correo');
+    const permisoEspecial = document.getElementById('permiso-especial')
+    const horarioEspecialSabado = document.getElementById('horario-especial-sabado')
+    const horarioEspecialDomingo = document.getElementById('horario-especial-domingo')
 
     let plantillaCreada;
 
@@ -472,7 +492,7 @@ function descargarDatos() {
         } else {
             email = `, correo: ${correo.value}`
         }
-        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}${email}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}, ${aht}`;
+        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}${email}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, Si se requiere permiso especial o algún documento: ${permisoEspecial}, Horario especial día sábado (si es diferente al indicado): ${horarioEspecialSabado}, Horario especial día domingo (si es diferente al indicado): ${horarioEspecialDomingo} Doc/NIT: ${documento.value}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}, ${aht}`;
     } else {
         let celular;
         if(cel.value > 0){
