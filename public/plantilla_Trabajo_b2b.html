@@ -372,7 +372,13 @@ function copiarDatos () {
     const correo = document.getElementById('correo')
 
     if(horarioB2B.value === 'si'){
-        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}, correo ${correo}`;
+        let email;
+        if(correo.value === ''){
+            email = ''
+        } else {
+            email = `, correo: ${correo.value}`
+        }
+        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}${email}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}`;
         return navigator.clipboard.writeText(plantillaCreada)
     } else {
         let celular;
@@ -381,7 +387,13 @@ function copiarDatos () {
         } else {
             celular = ''
         }
-        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}${celular}, correo ${correo}`;
+        let email;
+        if(correo.value === ''){
+            email = ''
+        } else {
+            email = `, correo: ${correo.value}`
+        }
+        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}${celular}${email}`;
         return navigator.clipboard.writeText(plantillaCreada)
         }
 }
@@ -403,6 +415,7 @@ function limpiarDatosForm () {
     document.getElementById('actualizacion-datos').value = 'no';
     document.getElementById('guion-agendamiento').value = 'no';
     document.getElementById('modo-back').value = 'no';
+    document.getElementById('correo').value = '';
     ocultarB2b()
 
     function reiniciarObservaciones () {
@@ -448,11 +461,18 @@ function descargarDatos() {
     const actualizacion = document.getElementById('actualizacion-datos');
     const guion = document.getElementById('guion-agendamiento');
     const modo = document.getElementById('modo-back');
+    const email= document.getElementById('correo');
 
     let plantillaCreada;
 
     if (horarioB2B.value === 'si') {
-        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}, ${aht}`;
+        let email;
+        if(correo.value === ''){
+            email = ''
+        } else {
+            email = `, correo: ${correo.value}`
+        }
+        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}${email}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}, ${aht}`;
     } else {
         let celular;
         if(cel.value > 0){
@@ -460,7 +480,13 @@ function descargarDatos() {
         } else {
             celular = ''
         }
-        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}${celular}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}, ${aht}`;
+        let email;
+        if(correo.value === ''){
+            email = ''
+        } else {
+            email = `, correo: ${correo.value}`
+        }
+        plantillaCreada = `Hora ${hora}, fecha ${fecha} Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}${celular}${email}, ¿actualicé los datos? ${actualizacion.value}, ¿brindé guion de agendamiento? ${guion.value}, ¿realicé verificación de modo back? ${modo.value}, ${aht}`;
     }
 
     // Crear un archivo con el contenido de la plantilla

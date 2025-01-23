@@ -211,6 +211,7 @@ function copiarDatos () {
     const horarioAtencion = document.getElementById('horario-atencion')
     const documento = document.getElementById('documentoIdentidad')
     const cel = document.getElementById('celular')
+    const correo = document.getElementById('correo')
 
     if(horarioB2B.value === 'si'){
         const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada: ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, Doc/NIT: ${documento.value}`;
@@ -244,6 +245,7 @@ function limpiarDatosForm () {
     document.getElementById('actualizacion-datos').value = 'no';
     document.getElementById('guion-agendamiento').value = 'no';
     document.getElementById('modo-back').value = 'no';
+    document.getElementById('email').value = '';
     ocultarB2b()
     function reiniciarObservarciones () {
         const observaciones = document.getElementById('observaciones')
