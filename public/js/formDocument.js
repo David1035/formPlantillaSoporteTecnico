@@ -82,12 +82,16 @@ async function enviarDatosAlServidor() {
     const actualizacion = document.getElementById('actualizacion-datos');
     const guion = document.getElementById('guion-agendamiento');
     const modo = document.getElementById('modo-back');
+    const permisoEspecial = document.getElementById('permiso-especial')
+    const horarioEspecialSabado = document.getElementById('horario-especial-sabado')
+    const horarioEspecialDomingo = document.getElementById('horario-especial-domingo')
+
     const actualizacionDatos = `¿Actualicé los datos?: ${actualizacion.value}, ¿brindé guion de agendamiento?: ${guion.value}, ¿realicé verificación de modo back?: ${modo.value}`
 
     let plantillaCreada;
 
     if (horarioB2B.value === 'si') {
-        plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada: ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, Documento o Nit: ${documento.value}`;
+        plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, Si se requiere permiso especial o algún documento: ${permisoEspecial.value}, Horario especial día sábado (si es diferente al indicado): ${horarioEspecialSabado.value}, Horario especial día domingo (si es diferente al indicado): ${horarioEspecialDomingo.value} Doc/NIT: ${documento.value}`;
     } else {
         let celular;
         if(cel.value > 0){
@@ -211,9 +215,12 @@ function copiarDatos () {
     const horarioAtencion = document.getElementById('horario-atencion')
     const documento = document.getElementById('documentoIdentidad')
     const cel = document.getElementById('celular')
+    const permisoEspecial = document.getElementById('permiso-especial')
+    const horarioEspecialSabado = document.getElementById('horario-especial-sabado')
+    const horarioEspecialDomingo = document.getElementById('horario-especial-domingo')
 
     if(horarioB2B.value === 'si'){
-        const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, documento: ${documento.value}`;
+        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, Si se requiere permiso especial o algún documento: ${permisoEspecial.value}, Horario especial día sábado (si es diferente al indicado): ${horarioEspecialSabado.value}, Horario especial día domingo (si es diferente al indicado): ${horarioEspecialDomingo.value} Doc/NIT: ${documento.value}`;
         return navigator.clipboard.writeText(plantillaCreada)
     } else {
         let celular;
@@ -222,10 +229,11 @@ function copiarDatos () {
         } else {
             celular = ''
         }
-        const plantillaCreada = `Observaciones ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, tecnología: ${tecnology.value}, tipo de servicio: ${tipoServicio.value}, naturaleza del problema: ${naturaleza.value}, documento: ${documento.value}${celular}`;
+        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza: ${naturaleza.value}, Doc: ${documento.value}${celular}`;
         return navigator.clipboard.writeText(plantillaCreada)
         }
 }
+
 
 function limpiarDatosForm () {
     document.getElementById('id-llamada').value = '';
@@ -244,6 +252,9 @@ function limpiarDatosForm () {
     document.getElementById('actualizacion-datos').value = 'no';
     document.getElementById('guion-agendamiento').value = 'no';
     document.getElementById('modo-back').value = 'no';
+    document.getElementById('permiso-especial').value = '';
+    document.getElementById('horario-especial-sabado').value = '';
+    document.getElementById('horario-especial-domingo').value = '';
     ocultarB2b()
     function reiniciarObservarciones () {
         const observaciones = document.getElementById('observaciones')
