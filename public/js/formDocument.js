@@ -313,16 +313,16 @@ function startCounter() {
 
     startTime = Date.now();
     let hasPlayedInitialAlarm = false;
-    let nextAlarmTime = 60; // Primera alarma a los 60 segundos
+    let nextAlarmTime = 30; // Primera alarma a los 60 segundos
 
     interval = setInterval(() => {
         const elapsedTime = (Date.now() - startTime) / 1000; // Tiempo transcurrido en segundos
 
         // Alarma inicial a los 60 segundos
-        if (!hasPlayedInitialAlarm && elapsedTime >= 60) {
+        if (!hasPlayedInitialAlarm && elapsedTime >= 30) {
             playSound(); // Reproduce el sonido
             hasPlayedInitialAlarm = true;
-            nextAlarmTime = 230; // Configura la siguiente alarma a los 200 segundos (60 + 170)
+            nextAlarmTime = 200; // Configura la siguiente alarma a los 200 segundos (30 + 170)
         }
 
         // Alarmas repetitivas cada 140 segundos
