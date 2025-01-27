@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Datos</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
   <style>
     .table-container {
       max-width: 700px;
@@ -445,6 +448,7 @@ function copiarPortapapeles(tablaId) {
   let datos = [];
   let titulo = '';
   const saludo = obtenerSaludo(); // Obtener el saludo correspondiente
+  const saludito = soloSaludar() // solo saludar
 
   switch (tablaId) {
       case 'tabla1':
@@ -457,7 +461,8 @@ function copiarPortapapeles(tablaId) {
               `Ciudad: ${document.getElementById('ciudad').value}`,
               `Id de llamada: ${document.getElementById('llamada').value}`,
               `Disponibilidad: ${document.getElementById('disponibilidad').value}`,
-              `Motivo: ${document.getElementById('motivo').value}`
+              `Motivo: ${document.getElementById('motivo').value}`,
+              `Id: ${document.getElementById('id1').value}`
           ];
           break;
       case 'tabla2':
@@ -482,7 +487,8 @@ function copiarPortapapeles(tablaId) {
               `ID BA: ${document.getElementById('idBa').value}`,
               `ID Llamada: ${document.getElementById('idLlamada3').value}`,
               `MAC: ${document.getElementById('mac3').value}`,
-              `Observación: ${document.getElementById('observacion3').value}`
+              `Observación: ${document.getElementById('observacion3').value}`,
+              `Id: ${document.getElementById('id3').value}`
           ];
           break;
       case 'tabla4':
@@ -499,7 +505,8 @@ function copiarPortapapeles(tablaId) {
               `Plan de Facturación: ${document.getElementById('planFacturacion').value}`,
               `Pedido de Instalación: ${document.getElementById('pedidoInstalacion').value}`,
               `Fecha de Agenda Instalación: ${document.getElementById('fechaAgenda').value}`,
-              `Notas Adicionales: ${document.getElementById('notasAdicionales').value}`
+              `Notas Adicionales: ${document.getElementById('notasAdicionales').value}`,
+              `Id: ${document.getElementById('id4').value}`
           ];
           break;
       case 'tabla5':
@@ -512,7 +519,8 @@ function copiarPortapapeles(tablaId) {
               `Ciudad: ${document.getElementById('ciudad5').value}`,
               `Id de llamada: ${document.getElementById('llamada5').value}`,
               `Disponibilidad: ${document.getElementById('disponibilidad5').value}`,
-              `Motivo: ${document.getElementById('motivo5').value}`
+              `Motivo: ${document.getElementById('motivo5').value}`,
+              `Id: ${document.getElementById('id5').value}`
           ];
           break;
       case 'tabla6':
@@ -545,16 +553,25 @@ function copiarPortapapeles(tablaId) {
           titulo = 'Datos';
           datos = [
               `Activo: ${document.getElementById('activo').value}`,
-              `Nodo: ${document.getElementById('nodo').value}`,
-              `Cmts: ${document.getElementById('cmts').value}`,
+              `Alias: ${document.getElementById('nodo').value}`,
+              `Cmts/Arpon: ${document.getElementById('cmts').value}`,
               `Ciudad: ${document.getElementById('ciudadEnviar').value}`,
-              `Naturaleza: ${document.getElementById('naturaleza').value}`
+              `Naturaleza: ${document.getElementById('naturaleza').value}`,
+              `Marca y Ref Equipo: ${document.getElementById('equipo').value}`
           ];
           break;
   }
 
   // Combina el saludo, el título y los datos
-  const texto = [saludo, titulo, ...datos].join('\n');
+  let texto = [];
+  if(titulo === 'Datos') {
+    texto = [saludito, ...datos].join('\n');
+  } else if(titulo === 'Pedido en Vuelo') {
+    texto = [titulo, ...datos].join('\n');
+  } else {
+    texto = [saludo, titulo, ...datos].join('\n');
+  }
+  
   
   // Copiar el texto al portapapeles
   navigator.clipboard.writeText(texto).then(() => {
@@ -591,6 +608,23 @@ function obtenerSaludo() {
 
   return saludo;
 }
+
+function soloSaludar() {
+    const fechaActual = new Date();
+    const hora = fechaActual.getHours();
+  
+    let saludito;
+  
+    if (hora >= 6 && hora < 12) {
+        saludito = "Buenos días";
+    } else if (hora >= 12 && hora < 18) {
+        saludito = "Buenas tardes";
+    } else {
+        saludito = "Buenas noches";
+    }
+  
+    return saludito;
+  }
   </script>
 </body>
 </html>
