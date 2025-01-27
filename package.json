@@ -7,6 +7,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "pm2": "pm2 start app.js --watch",
+    "pm2Stop": "pm2 stop app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "David H",
