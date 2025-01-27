@@ -252,6 +252,7 @@ function limpiarDatosForm () {
     document.getElementById('actualizacion-datos').value = 'no';
     document.getElementById('guion-agendamiento').value = 'no';
     document.getElementById('modo-back').value = 'no';
+    document.getElementById('horario-atencion').value = '';
     document.getElementById('permiso-especial').value = '';
     document.getElementById('horario-especial-sabado').value = '';
     document.getElementById('horario-especial-domingo').value = '';
@@ -313,16 +314,16 @@ function startCounter() {
 
     startTime = Date.now();
     let hasPlayedInitialAlarm = false;
-    let nextAlarmTime = 30; // Primera alarma a los 60 segundos
+    let nextAlarmTime = 45; // Primera alarma a los 60 segundos
 
     interval = setInterval(() => {
         const elapsedTime = (Date.now() - startTime) / 1000; // Tiempo transcurrido en segundos
 
         // Alarma inicial a los 60 segundos
-        if (!hasPlayedInitialAlarm && elapsedTime >= 30) {
+        if (!hasPlayedInitialAlarm && elapsedTime >= 45) {
             playSound(); // Reproduce el sonido
             hasPlayedInitialAlarm = true;
-            nextAlarmTime = 200; // Configura la siguiente alarma a los 200 segundos (30 + 170)
+            nextAlarmTime = 215; // Configura la siguiente alarma a los 200 segundos (30 + 170)
         }
 
         // Alarmas repetitivas cada 140 segundos
