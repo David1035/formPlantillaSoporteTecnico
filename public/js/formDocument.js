@@ -3,6 +3,7 @@ let horaFinal;
 let hora;
 let fecha;
 let tiempoTotal;
+const API_URL = 'http://localhost:5000/api/forms/';
 // Extensión para manejar el contador con alarmas
 let interval; // Variable para el intervalo
 let startTime; // Tiempo de inicio del contador
@@ -61,6 +62,7 @@ btnEnviar.addEventListener('click', async function(event) {
         await enviarDatosAlServidor()
         limpiarDatosForm()
         insertarTexto()
+        ahtPorDia()
     } catch (error) {
         console.error('Error al enviar los datos al servidor:', error);
     }
@@ -116,7 +118,7 @@ async function enviarDatosAlServidor() {
 
     //Enviar datos al servidor 
     try {
-        const response = await fetch('http://localhost:5000/api/forms/', {
+        const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -151,8 +153,18 @@ function calcularTiempo() {
 }
 
 async function insertarTexto() {
-    const tipoPlantilla = document.getElementById('modoDeTrabajo')
     const totalTiempotext = document.getElementById('totalTiempoText')
+    const tipoAht = 'mensual'
+    try {
+        const response = await fetch(API_URL)
+        const data = await response.json()
+
+        calcularTiempoTotal(data, totalTiempotext, tipoAht)
+    } catch (error) {
+        
+    }
+
+    /*
     let tiempoTotal = 0;
     let counter = 0;
 
@@ -189,15 +201,62 @@ async function insertarTexto() {
     } catch (error) {
         console.error('Error al insertar texto:', error);
         totalTiempotext.textContent = 'Error al cargar datos';
-    }
+    } */
 }
 insertarTexto()
 
+async function ahtPorDia() {
+    const ahtDiario = document.getElementById('ahtDiario')
+    const tipoAht = 'hoy'
+    try {
+        const response = await fetch(API_URL)
+        if(!response.ok) {
+            throw new Error('Error al obtener los datos ', response.statusText)
+        } else {
+            const data = await response.json();
+            const horaActual = new Date();
 
+            //Registros por día actual 
+            const registrosHoy = data.filter((registro) => {
+                const horaCreada = new Date(registro.createdAt);
+                return horaCreada.getDate() === horaActual.getDate();
+            })
+            
+            calcularTiempoTotal(registrosHoy, ahtDiario, tipoAht)
+        }
+    } catch (error) {
+        console.error('error al obtener los datos', error)
+    }
+}
+
+ahtPorDia()
+
+// functión para calculcar el tiempo total de los registros
+function calcularTiempoTotal(registrosHoy, ahtDiario, tipoAht) {
+    const tipoPlantilla = document.getElementById('modoDeTrabajo')
+
+    const registrosN2 = registrosHoy.filter(registro => registro.tipoPlantilla === 'N2')
+    const registrosN1 = registrosHoy.filter(registro => registro.tipoPlantilla === 'N1')
+    const tiempoTotalN2 = registrosN2.reduce((acc, curr) => acc + curr.tiempoPromedio, 0)
+    const tiempoTotalN1 = registrosN1.reduce((acc, curr) => acc + curr.tiempoPromedio, 0)
+
+    if(tipoPlantilla.value === 'N2'){
+        const aht = tiempoTotalN2 / registrosN2.length || 0;
+        ahtDiario.textContent = `AHT ${tipoAht} N2: -------- ${aht.toFixed()}, Min ${(aht / 60).toFixed(2)}`
+        ahtDiario.style.backgroundColor = '#D5D2F5';
+    } else {
+        const aht = tiempoTotalN1 / registrosN1.length || 0;
+        ahtDiario.textContent = `AHT ${tipoAht} N1: -------- ${aht}, Min ${(aht / 60).toFixed(2)}`
+        ahtDiario.style.backgroundColor = '#f9f9f9';
+    }
+}
 
 function insertarTextDinamico() {
     const modoDeTrabajo = document.getElementById('modoDeTrabajo')
-    modoDeTrabajo.addEventListener('change' , () => { insertarTexto()})
+    modoDeTrabajo.addEventListener('change' , () => { 
+        insertarTexto()
+        ahtPorDia()
+    })
 }
 insertarTextDinamico()
 
