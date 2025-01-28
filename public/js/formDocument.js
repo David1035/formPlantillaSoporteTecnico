@@ -217,7 +217,7 @@ function calcularTiempoTotal(registrosHoy, ahtDiario, tipoAht) {
         }
     } else {
         const aht = tiempoTotalN1 / registrosN1.length || 0;
-        ahtDiario.textContent = `AHT ${tipoAht} N1: -------- ${aht}, Min ${(aht / 60).toFixed(2)}`
+        ahtDiario.textContent = `AHT ${tipoAht} N1: -------- ${aht.toFixed()}, Min ${(aht / 60).toFixed(2)}`
         ahtDiario.style.backgroundColor = '#f9f9f9';
         ahtDiario.style.marginTop = '5px';
     }
