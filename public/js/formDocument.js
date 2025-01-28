@@ -161,47 +161,8 @@ async function insertarTexto() {
 
         calcularTiempoTotal(data, totalTiempotext, tipoAht)
     } catch (error) {
-        
+        console.error('error al cargar los datos', error)
     }
-
-    /*
-    let tiempoTotal = 0;
-    let counter = 0;
-
-    try {
-        // realizar la solicitud a la Api para obtener los registros 
-        const response = await fetch('http://localhost:5000/api/forms/')
-        if(!response.ok) {
-            throw new Error('Error al obtener los datos ', response.statusText)
-        }
-
-        const data = await response.json()
-
-        //Filtrar datos según el modo de trabajo seleccionado N1 o N2
-        if(tipoPlantilla.value === 'N2'){
-            const registrosN2 = data.filter(registro => registro.tipoPlantilla === 'N2')
-            tiempoTotal = registrosN2.reduce((acc, curr) => acc + curr.tiempoPromedio, 0) // sumar el tiempo promedio
-            counter = registrosN2.length // contar el número de registros
-            totalTiempotext.style.backgroundColor = '#D5D2F5';
-        } else {
-            const registrosN1 = data.filter(registro => registro.tipoPlantilla === 'N1')
-            tiempoTotal = registrosN1.reduce((acc, curr) => acc + curr.tiempoPromedio, 0) // sumar el tiempo promedio
-            counter = registrosN1.length // contar el número de registros
-            totalTiempotext.style.backgroundColor = '#f9f9f9';
-        }
-
-        //calcular AHT
-        if(tiempoTotal > 0 && counter > 0){
-            const promedio = tiempoTotal / counter;
-            const aht = `AHT de ${tipoPlantilla.value}: --- ${promedio.toFixed()}, Min ${((promedio / 60).toFixed(1))}`;
-            totalTiempotext.textContent = aht;
-        } else {
-            totalTiempotext.textContent = '0';
-        }
-    } catch (error) {
-        console.error('Error al insertar texto:', error);
-        totalTiempotext.textContent = 'Error al cargar datos';
-    } */
 }
 insertarTexto()
 
@@ -248,6 +209,7 @@ function calcularTiempoTotal(registrosHoy, ahtDiario, tipoAht) {
         const aht = tiempoTotalN1 / registrosN1.length || 0;
         ahtDiario.textContent = `AHT ${tipoAht} N1: -------- ${aht}, Min ${(aht / 60).toFixed(2)}`
         ahtDiario.style.backgroundColor = '#f9f9f9';
+        ahtDiario.style.marginTop = '5px';
     }
 }
 
