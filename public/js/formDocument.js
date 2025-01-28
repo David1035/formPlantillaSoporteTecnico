@@ -245,15 +245,19 @@ function copiarDatos () {
     const horarioEspecialDomingo = document.getElementById('horario-especial-domingo')
 
     if(horarioB2B.value === 'si'){
-        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}, Si se requiere permiso especial o algún documento: ${permisoEspecial.value}, Horario especial día sábado (si es diferente al indicado): ${horarioEspecialSabado.value}, Horario especial día domingo (si es diferente al indicado): ${horarioEspecialDomingo.value} Doc/NIT: ${documento.value}`;
+        let permiso;
+        let sabado;
+        let domingo;
+        permisoEspecial.value === '' ? permiso = '' : permiso = `, Si se requiere permiso especial o algún documento: ${permisoEspecial.value}`
+        horarioEspecialSabado.value === '' ? sabado = '' : sabado = `, Horario especial día sábado: ${horarioEspecialSabado.value}`;
+        horarioEspecialDomingo.value === '' ? domingo = '' : domingo = `, Horario especial día domingo: ${horarioEspecialDomingo.value}`
+
+        const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza del problema: ${naturaleza.value}. Horario B2B activo. Los datos del representante encargado de atender la visita se especifican a continuación: nombre: ${atiendeB2b.value}, celular: ${celularB2b.value}, días de atención: ${diasAtencion.value}, en el horario: ${horarioAtencion.value}${permiso}${sabado}${domingo} Doc/NIT: ${documento.value}`;
         return navigator.clipboard.writeText(plantillaCreada)
     } else {
         let celular;
-        if(cel.value > 0){
-            celular = `, cel: ${cel.value}`
-        } else {
-            celular = ''
-        }
+        cel.value > 0 ? celular = `, cel: ${cel.value}` : celular = '';
+        
         const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza: ${naturaleza.value}, Doc: ${documento.value}${celular}`;
         return navigator.clipboard.writeText(plantillaCreada)
         }
