@@ -46,12 +46,19 @@ body {
 
 }
 .input-container {
-    width: 95px;
-    height: 16px;
+    width: 105px;
+    height: 20px;
     border-radius: 5px;
     border: 1px solid #297e21;
     outline: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
+    line-height: 1.5; /* Espaciado cómodo entre líneas */
+    box-sizing: border-box; /* Incluye el padding y borde en las dimensiones */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
+    font-weight: bold; /* Texto grueso */
+    font-size: 14px; /* Ajusta el tamaño de la fuente */
+    color: #4a5568; /* Un gris oscuro suave para el texto */
+    background-color: #f8fafc; /* Un fondo gris claro para resaltar el texto */
+    transition: border 0.3s ease, box-shadow 0.3s ease; /* Animación suave al interactuar */
     
 }
 .select-container {
@@ -80,15 +87,20 @@ body {
 .observaciones-container {
     width: 90%;
     border-radius: 12px;
-    border: 1px solid transparent; /* Define un borde inicial transparente */
+    border: 1px solid #d1d5db; /* Un gris claro suave para el borde */
     outline: none; /* Elimina el contorno predeterminado al hacer focus */
-    padding: 5px;
+    padding: 10px; /* Más espacio interno para comodidad */
     overflow: hidden;
-    resize: none;
+    resize: none; /* Desactiva el cambio de tamaño (si es un textarea) */
     height: 50px;
-    line-height: 1.5;
-    box-sizing: border-box;
-    box-shadow: 0 0 10px rgba(0, 0, 0 , 0.1);
+    line-height: 1.5; /* Espaciado cómodo entre líneas */
+    box-sizing: border-box; /* Incluye el padding y borde en las dimensiones */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
+    font-weight: bold; /* Texto grueso */
+    font-size: 14px; /* Ajusta el tamaño de la fuente */
+    color: #4a5568; /* Un gris oscuro suave para el texto */
+    background-color: #f8fafc; /* Un fondo gris claro para resaltar el texto */
+    transition: border 0.3s ease, box-shadow 0.3s ease; /* Animación suave al interactuar */
 }
 .observaciones-container:focus {
     background-color: #F4FFC3;
