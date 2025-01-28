@@ -158,8 +158,14 @@ async function insertarTexto() {
     try {
         const response = await fetch(API_URL)
         const data = await response.json()
+        const dataPorMesActual = data.filter((registro) => {
+            const fechaCreate = new Date(registro.createdAt)
+            const fechaActual = new Date()
+            return fechaCreate.getMonth() === fechaActual.getMonth()
+        })
 
-        calcularTiempoTotal(data, totalTiempotext, tipoAht)
+
+        calcularTiempoTotal(dataPorMesActual, totalTiempotext, tipoAht)
     } catch (error) {
         console.error('error al cargar los datos', error)
     }
@@ -257,7 +263,7 @@ function copiarDatos () {
     } else {
         let celular;
         cel.value > 0 ? celular = `, cel: ${cel.value}` : celular = '';
-        
+
         const plantillaCreada = `Observaciones: ${observaciones.value}, Id de la llamada ${idLlamada.value}, Id prueba SMNET: ${smnet.value}, Tecnología: ${tecnology.value}, Tipo de servicio: ${tipoServicio.value}, Naturaleza: ${naturaleza.value}, Doc: ${documento.value}${celular}`;
         return navigator.clipboard.writeText(plantillaCreada)
         }

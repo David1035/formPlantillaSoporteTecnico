@@ -61,11 +61,13 @@ body {
     transition: border 0.3s ease, box-shadow 0.3s ease; /* Animación suave al interactuar */
     
 }
+
 .select-container {
     border-radius: 15px;
     border: 1px solid #297e21;
     border: none;
 }
+
 .form-container-class {
     width: 100%;
     display: flex;
