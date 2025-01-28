@@ -204,7 +204,11 @@ function calcularTiempoTotal(registrosHoy, ahtDiario, tipoAht) {
     if(tipoPlantilla.value === 'N2'){
         const aht = tiempoTotalN2 / registrosN2.length || 0;
         ahtDiario.textContent = `AHT ${tipoAht} N2: -------- ${aht.toFixed()}, Min ${(aht / 60).toFixed(2)}`
-        ahtDiario.style.backgroundColor = '#D5D2F5';
+        if(tipoAht === 'hoy'){
+            ahtDiario.style.backgroundColor = '#f9f9f9';
+        } else {
+            ahtDiario.style.backgroundColor = '#D5D2F5';
+        }
     } else {
         const aht = tiempoTotalN1 / registrosN1.length || 0;
         ahtDiario.textContent = `AHT ${tipoAht} N1: -------- ${aht}, Min ${(aht / 60).toFixed(2)}`
