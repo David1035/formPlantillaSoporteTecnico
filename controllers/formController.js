@@ -1,16 +1,29 @@
 const Form = require('../models/Form')
 
-//Obtener todos los registros
+// Obtener todos los registros con opción de límite
 const getAllForm = async (req, res) => {
     try {
+        // Obtener el parámetro "limit" de la consulta, si no se define, traer todos
+        const limit = req.query.limit ? parseInt(req.query.limit) : null;
+
+        // Validar el límite
+        if (limit !== null && (isNaN(limit) || limit <= 0)) {
+            return res.status(400).json({ message: '"limit" debe ser un número positivo.' });
+        }
+
+        // Consulta con Sequelize
         const forms = await Form.findAll({
-            order: [['id', 'DESC']] // Ordenar de manera descendente
+            order: [['id', 'DESC']], // Ordenar de manera descendente
+            limit: limit // Se aplicará solo si se define en la consulta
         });
-        res.json(forms)
+
+        // Responder con los resultados
+        res.json(forms);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
+
 
 // crear un nuevo registtro
 const createForm = async (req, res) => {

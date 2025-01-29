@@ -163,8 +163,7 @@ async function insertarTexto() {
             const fechaActual = new Date()
             return fechaCreate.getMonth() === fechaActual.getMonth()
         })
-
-
+        
         calcularTiempoTotal(dataPorMesActual, totalTiempotext, tipoAht)
     } catch (error) {
         console.error('error al cargar los datos', error)

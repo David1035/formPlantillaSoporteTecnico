@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllForm, createForm, getFormById, updateForm, deleteForm, searchDocumentoForm, searchIdLlamadaForm } = require('../controllers/formController');
+const { getAllForm, createForm, getFormById, updateForm, deleteForm, searchDocumentoForm, searchIdLlamadaForm, getAllFormLimit } = require('../controllers/formController');
 
 router.get('/forms', getAllForm)
 router.post('/forms', createForm)

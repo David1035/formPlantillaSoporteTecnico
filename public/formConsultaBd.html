@@ -64,7 +64,10 @@
 </head>
 <body>
     <h1>Gestión de Registros</h1>
+    <label for="ingresar-valores">Ingresar Registros</label>
+    <input type="text" id="ingresar-valores">
     <button onclick="consultarTodos()">Cargar Registros</button>
+    
     <table>
         <thead>
             <tr>
@@ -82,12 +85,16 @@
     </table>
 
     <script>
-        const apiUrl = "http://localhost:5000/api/forms";
+        
+        const apiUrl = 'http://localhost:5000/api/forms';
 
         // Consultar todos los registros
         async function consultarTodos() {
             try {
-                const response = await fetch(apiUrl);
+                const input = document.getElementById('ingresar-valores');
+                const valor = input.value.trim();
+                const datosInput = valor ? `?limit=${valor}` : '';
+                const response = await fetch(apiUrl + datosInput);
                 const data = await response.json();
 
                 const tabla = document.getElementById("tablaRegistros");
