@@ -93,7 +93,7 @@
             try {
                 const input = document.getElementById('ingresar-valores');
                 const valor = input.value.trim();
-                const datosInput = valor ? `?limit=${valor}` : '';
+                const datosInput = valor ? `?limit=${valor}` : `?limit=7`;
                 const response = await fetch(apiUrl + datosInput);
                 const data = await response.json();
 
