@@ -1,3 +1,6 @@
+const fenix = 'PqnBX455ORAN67';
+const elite = 'Dkh4d1Pgo9$8&31';
+
 let horaInicial;
 let horaFinal;
 let hora;
@@ -375,3 +378,12 @@ function stopCounter() {
     clearInterval(interval);
     isRunning = false;
 }
+
+const btnFenix = document.getElementById('btn-fenix')
+const btnElite = document.getElementById('btn-elite')
+btnFenix.addEventListener('click', () => {
+    return navigator.clipboard.writeText(fenix)
+})
+btnElite.addEventListener('click', () => {
+    return navigator.clipboard.writeText(elite)
+})
