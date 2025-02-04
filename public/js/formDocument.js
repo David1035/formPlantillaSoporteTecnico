@@ -138,7 +138,6 @@ async function enviarDatosAlServidor() {
 
 function calcularTiempo() {
     horaFinal = new Date();
-    console.log(horaFinal.getHours())
     const modoDeTrabajo = document.getElementById('modoDeTrabajo')
 
     if(modoDeTrabajo.value === 'N2') {
