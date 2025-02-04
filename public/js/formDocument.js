@@ -1,4 +1,4 @@
-const fenix = 'PqnBX455ORAN67';
+const fenix = 'JRCPJ3NII89SG8';
 const elite = 'Dkh4d1Pgo9$8&31';
 
 let horaInicial;
