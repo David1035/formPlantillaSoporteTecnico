@@ -255,7 +255,7 @@ function copiarDatos () {
         let permiso;
         let sabado;
         let domingo;
-        permisoEspecial.value === '' ? permiso = '' : permiso = `, Si se requiere permiso especial o algún documento: ${permisoEspecial.value}`
+        permisoEspecial.value === '' ? permiso = '' : permiso = `, Si se requiere permiso especial: ${permisoEspecial.value}`
         horarioEspecialSabado.value === '' ? sabado = '' : sabado = `, Horario especial día sábado: ${horarioEspecialSabado.value}`;
         horarioEspecialDomingo.value === '' ? domingo = '' : domingo = `, Horario especial día domingo: ${horarioEspecialDomingo.value}`
 
