@@ -86,12 +86,11 @@ async function enviarDatosAlServidor() {
     const cel = document.getElementById('celular');
     const actualizacion = document.getElementById('actualizacion-datos');
     const guion = document.getElementById('guion-agendamiento');
-    const modo = document.getElementById('modo-back');
     const permisoEspecial = document.getElementById('permiso-especial')
     const horarioEspecialSabado = document.getElementById('horario-especial-sabado')
     const horarioEspecialDomingo = document.getElementById('horario-especial-domingo')
 
-    const actualizacionDatos = `¿Actualicé los datos?: ${actualizacion.value}, ¿brindé guion de agendamiento?: ${guion.value}, ¿realicé verificación de modo back?: ${modo.value}`
+    const actualizacionDatos = `¿Actualicé los datos?: ${actualizacion.value}, ¿brindé guion de agendamiento?: ${guion.value}`
 
     let plantillaCreada;
 
@@ -287,7 +286,6 @@ function limpiarDatosForm () {
     document.getElementById('dias-atencion').value = 'Lunes a Viernes';
     document.getElementById('actualizacion-datos').value = 'no';
     document.getElementById('guion-agendamiento').value = 'no';
-    document.getElementById('modo-back').value = 'no';
     document.getElementById('horario-atencion').value = '';
     document.getElementById('permiso-especial').value = '';
     document.getElementById('horario-especial-sabado').value = '';
@@ -359,13 +357,13 @@ function startCounter() {
         if (!hasPlayedInitialAlarm && elapsedTime >= 45) {
             playSound(); // Reproduce el sonido
             hasPlayedInitialAlarm = true;
-            nextAlarmTime = 215; // Configura la siguiente alarma a los 200 segundos (30 + 170)
+            nextAlarmTime = 170; // Configura la siguiente alarma a los 120 segundos (30 + 120)
         }
 
         // Alarmas repetitivas cada 140 segundos
         if (elapsedTime >= nextAlarmTime) {
             playSound(); // Reproduce el sonido
-            nextAlarmTime += 170; // Actualiza para la siguiente alarma
+            nextAlarmTime += 115; // Actualiza para la siguiente alarma
         }
 
     }, 100); // Actualización precisa cada 100ms
