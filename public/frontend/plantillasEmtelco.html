@@ -12,17 +12,31 @@
         main {
             display: grid;
             grid-auto-columns: auto;
-            max-width: 300px;
+            max-width: 600px;
         }
         .container-seleccionar-plantilla {
             display: grid;
         }
+        .class-container {
+            display: grid;
+            grid-column: auto;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            max-width: 550px;
+            gap: 15px;
+        }
+
     </style>
 </head>
 <body>
     <main>
         <div id="contenedor-plantillas" class="container-seleccionar-plantilla">
-            <h1>Planillas predeterminadas</h1>
+            <h1>Planillas N2</h1>
             <select name="plantillas" id="seleccionar-planilla">
                 <option value="habilitarMiTigo">Habilitar MiTigo</option>
                 <option value="agilizarRecomendar">Agilizar o Recomendar</option>
@@ -34,22 +48,39 @@
                 <option value="parametrizarAgenda">Parametrizar Agenda</option>
             </select>
             <form action="" class="class-container" id="habilitarMiTigo">
-                <label for="login">Login</label>
-                <input type="text" id="login" value="nherngom">
-                <label for="name">Nombre</label>
-                <input type="text" id="name">
-                <label for="documento">Documento Identididad</label>
-                <input type="number" id="documento">
-                <label for="contratoHogar">Contrato Hogar</label>
-                <input type="number" id="contratoHogar">
-                <label for="celular">Celular</label>
-                <input type="number" id="celular">
-                <label for="correo">Correo Eletrónico</label>
-                <input type="email" id="correo">
-                <label for="falla">Falla</label>
-                <textarea name="falla" id="falla"></textarea>
-                <boton-enviar></boton-enviar>
-            </form>
+                <div class="form-group">
+                    <label for="login">Login</label>
+                    <input type="text" id="login" value="nherngom">
+                </div>
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name">
+                </div>
+                <div class="form-group">
+                    <label for="documento">Documento Identidad</label>
+                    <input type="number" id="documento">
+                </div>
+                <div class="form-group">
+                    <label for="contratoHogar">Contrato Hogar</label>
+                    <input type="number" id="contratoHogar">
+                </div>
+                <div class="form-group">
+                    <label for="celular">Celular</label>
+                    <input type="number" id="celular">
+                </div>
+                <div class="form-group">
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" id="correo">
+                </div>
+                <div class="form-group">
+                    <label for="falla">Falla</label>
+                    <textarea name="falla" id="falla"></textarea>
+                </div>
+                <div class="form-group">
+                    <button>Copiar Datos</button>
+                    <button>Borrar datos</button>
+                </div>
+            </form>            
                 
                 
         </div>
