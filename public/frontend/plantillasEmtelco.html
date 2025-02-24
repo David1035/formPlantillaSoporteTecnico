@@ -1,36 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plantillas Predeterminadas</title>
+    <title>Planillas con Web Components</title>
     <style>
-        body{
+        body {
             display: flex;
             justify-content: center;
+            font-family: Arial, sans-serif;
         }
         main {
             display: grid;
-            grid-auto-columns: auto;
             max-width: 600px;
         }
         .container-seleccionar-plantilla {
             display: grid;
+            text-align: center;
         }
         .class-container {
-            display: grid;
-            grid-column: auto;
-            max-width: 600px;
-            margin: auto;
-        }
-
-        .form-group {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            display: none;
             max-width: 550px;
-            gap: 15px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background: #f9f9f9;
         }
-
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            flex: 1;
+            text-align: left;
+            font-weight: bold;
+        }
+        .form-group input {
+            flex: 2;
+            padding: 5px;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -38,94 +59,153 @@
         <div id="contenedor-plantillas" class="container-seleccionar-plantilla">
             <h1>Planillas N2</h1>
             <select name="plantillas" id="seleccionar-planilla">
+                <option value="">Selecciona una tabla</option>
                 <option value="habilitarMiTigo">Habilitar MiTigo</option>
-                <option value="agilizarRecomendar">Agilizar o Recomendar</option>
+                <option value="agilizarRecomendar">Agilizar recomendar</option>
                 <option value="activarDecos">Activar decos / paquetes</option>
-                <option value="decoMalRetirado">Deco mal retirado</option>
                 <option value="perfilLDAP">Perfil LDAP</option>
-                <option value="portalCautivo">Portal Cautivo</option>
+                <option value="decoMalRetirado">Deco Mal Retirado</option>
                 <option value="habilitarCupos">Habilitar Cupos</option>
-                <option value="parametrizarAgenda">Parametrizar Agenda</option>
+                <option value="enviarDatos">Enviar Datos</option>
             </select>
-            <form action="" class="class-container" id="habilitarMiTigo">
-                <div class="form-group">
-                    <label for="login">Login</label>
-                    <input type="text" id="login" value="nherngom">
-                </div>
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" id="name">
-                </div>
-                <div class="form-group">
-                    <label for="documento">Documento Identidad</label>
-                    <input type="number" id="documento">
-                </div>
-                <div class="form-group">
-                    <label for="contratoHogar">Contrato Hogar</label>
-                    <input type="number" id="contratoHogar">
-                </div>
-                <div class="form-group">
-                    <label for="celular">Celular</label>
-                    <input type="number" id="celular">
-                </div>
-                <div class="form-group">
-                    <label for="correo">Correo Electrónico</label>
-                    <input type="email" id="correo">
-                </div>
-                <div class="form-group">
-                    <label for="falla">Falla</label>
-                    <textarea name="falla" id="falla"></textarea>
-                </div>
-                <div class="form-group">
-                    <button>Copiar Datos</button>
-                    <button>Borrar datos</button>
-                    <boton-enviar></boton-enviar>
-                </div>
-            </form>            
-                
-                
+
+            <!-- Contenedor donde se generará el formulario -->
+            <div id="form-container"></div>
         </div>
     </main>
+
+    <!-- Template para Formularios -->
+    <template id="plantilla-formulario">
+        <form class="class-container">
+            <h2 id="titulo"></h2>
+            <div id="campos"></div>
+            <div class="buttons-container">
+                <boton-copiar></boton-copiar>
+                <boton-enviar></boton-enviar>
+            </div>
+        </form>
+    </template>
+
+    <script>
+        class BotonEnviar extends HTMLElement {
+            constructor() {
+                super();
+                const shadow = this.attachShadow({ mode: "open" });
+                shadow.innerHTML = `
+                    <style>
+                        button {
+                            background-color: #28a745;
+                            color: white;
+                            border: none;
+                            padding: 10px 15px;
+                            font-size: 16px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        }
+                        button:hover {
+                            background-color: #218838;
+                        }
+                    </style>
+                    <button>Enviar</button>
+                `;
+
+                shadow.querySelector("button").addEventListener("click", () => {
+                    alert("Formulario enviado con éxito!");
+                });
+            }
+        }
+
+        class BotonCopiar extends HTMLElement {
+            constructor() {
+                super();
+                const shadow = this.attachShadow({ mode: "open" });
+                shadow.innerHTML = `
+                    <style>
+                        button {
+                            background-color: #007bff;
+                            color: white;
+                            border: none;
+                            padding: 10px 15px;
+                            font-size: 16px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        }
+                        button:hover {
+                            background-color: #0056b3;
+                        }
+                    </style>
+                    <button>Copiar Datos</button>
+                `;
+
+                shadow.querySelector("button").addEventListener("click", () => {
+                    copiarDatos();
+                });
+            }
+        }
+
+        customElements.define("boton-enviar", BotonEnviar);
+        customElements.define("boton-copiar", BotonCopiar);
+
+        function obtenerSaludo() {
+            const fecha = new Date();
+            const hora = fecha.getHours();
+            if (hora >= 6 && hora < 12) return "Buenos días";
+            if (hora >= 12 && hora < 18) return "Buenas tardes";
+            return "Buenas noches";
+        }
+
+        const formularios = {
+            habilitarMiTigo: { titulo: "Habilitar MiTigo", campos: ["Login", "Nombre", "Documento Identidad", "Contrato Hogar", "Celular", "Correo Electrónico", "Falla", "Id de llamada", "ID Chat"] },
+            agilizarRecomendar: { titulo: "Agilizar recomendar", campos: ["Login", "Número de incidente", "Teléfonos (fijo-celular)", "Tipo de solicitud", "Ciudad", "Id de llamada", "Disponibilidad", "Motivo", "ID Chat"] },
+            activarDecos: { titulo: "Activar decos / paquetes", campos: ["Login", "Prueba Integrada", "Pedido", "ID TV", "ID Llamada", "MAC's Deco(s) a activar", "ID Inconsistencias", "ID Chat"] },
+            perfilLDAP: { titulo: "Perfil LDAP", campos: ["Login", "Prueba Integrada", "Pedido (velocidad del BA)", "ID BA", "ID Llamada", "MAC", "Observación", "ID Chat"] },
+            decoMalRetirado: { titulo: "Deco mal retirado", campos: ["Login", "Prueba Integrada", "Pedido", "ID TV", "ID Llamada", "MAC's Deco(s) a activar", "MAC's Deco(s) a inactivar", "ID Inconsistencias", "ID Chat"] },
+            habilitarCupos: { titulo: "Habilitar Cupos", campos: ["Login", "Número de incidente", "Teléfonos", "Tipo de solicitud", "Ciudad", "Id de llamada", "Disponibilidad", "Motivo", "ID Chat"] },
+            enviarDatos: { titulo: "Enviar Datos", campos: ["Activo", "Alias", "Cmts/Arpon", "Ciudad", "Naturaleza", "Marca y Ref Equipo"] }
+        };
+
+        document.getElementById("seleccionar-planilla").addEventListener("change", function () {
+            const formContainer = document.getElementById("form-container");
+            formContainer.innerHTML = "";
+
+            if (this.value) {
+                const template = document.getElementById("plantilla-formulario").content.cloneNode(true);
+                const datosFormulario = formularios[this.value];
+
+                template.querySelector("#titulo").textContent = datosFormulario.titulo;
+
+                const camposContainer = template.querySelector("#campos");
+                datosFormulario.campos.forEach(campo => {
+                    const div = document.createElement("div");
+                    div.classList.add("form-group");
+                    div.innerHTML = `<label>${campo}:</label><input type="text">`;
+                    camposContainer.appendChild(div);
+                });
+
+                template.querySelector("form").style.display = "grid";
+                formContainer.appendChild(template);
+            }
+        });
+
+        function copiarDatos() {
+            const formContainer = document.querySelector("#form-container form");
+            if (!formContainer) return;
+
+            let textoCopiar = `${obtenerSaludo()}, ¿podrías por favor ayudarme con el siguiente requerimiento?\n`;
+            textoCopiar += formContainer.querySelector("#titulo").textContent + "\n";
+
+            formContainer.querySelectorAll(".form-group").forEach(group => {
+                const label = group.querySelector("label")?.textContent;
+                const input = group.querySelector("input")?.value;
+                if (label && input !== undefined) {
+                    textoCopiar += `${label} ${input}\n`;
+                }
+            });
+
+            navigator.clipboard.writeText(textoCopiar).then(() => {
+                alert("Datos copiados con éxito!");
+            });
+        }
+    </script>
 </body>
-<script>
-    class BotonEnviar extends HTMLElement {
-  constructor() {
-    super();
-    
-    // Crear Shadow DOM
-    const shadow = this.attachShadow({ mode: "open" });
-
-    // Estructura del botón
-    shadow.innerHTML = `
-      <style>
-        button {
-          background-color: #28a745;
-          color: white;
-          border: none;
-          padding: 10px 20px;
-          font-size: 16px;
-          border-radius: 5px;
-          cursor: pointer;
-          transition: background 0.3s;
-        }
-        
-        button:hover {
-          background-color: #218838;
-        }
-      </style>
-      <button>Enviar</button>
-    `;
-
-    // Evento de clic
-    const button = shadow.querySelector("button");
-    button.addEventListener("click", () => {
-      alert("Formulario enviado con éxito!");
-    });
-  }
-}
-
-// Registrar el nuevo elemento
-customElements.define("boton-enviar", BotonEnviar);
-
-</script>
 </html>
