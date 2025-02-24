@@ -224,7 +224,7 @@
           formContainer.querySelectorAll(".form-group").forEach(group => {
               const label = group.querySelector("label").textContent;
               const input = group.querySelector("input").value;
-              textoCopiar += `${label} ${input},\n`;
+              textoCopiar += `${label} ${input}\n`;
           });
   
           navigator.clipboard.writeText(textoCopiar).then(() => {
