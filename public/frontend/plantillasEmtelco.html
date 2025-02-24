@@ -88,152 +88,152 @@
     </template>
 
     <script>
-        
-        class BotonBorrar extends HTMLElement {
-            constructor() {
-                super();
-                const shadow = this.attachShadow({ mode: "open" });
-                shadow.innerHTML = `
-                    <style>
-                        button {
-                            background-color: #dc3545;
-                            color: white;
-                            border: none;
-                            padding: 10px 15px;
-                            font-size: 16px;
-                            border-radius: 5px;
-                            cursor: pointer;
-                        }
-                        button:hover {
-                            background-color: #c82333;
-                        }
-                    </style>
-                    <button>Borrar Datos</button>
-                `;
-                  
-                shadow.querySelector("button").addEventListener("click", () => {
-                    this.borrarDatosFormulario();
-                });
-            }
-          
-            borrarDatosFormulario() {
-                const formContainer = document.querySelector("#form-container form");
-                if (!formContainer) return;
-            
-                formContainer.querySelectorAll("input, textarea").forEach(input => {
-                    if (input.id === "login") {
-                        input.value = "nherngom"; // Mantener el valor en el campo "Login"
-                    } else {
-                        input.value = "";
-                    }
-                });
-            }
-        }
-
-        customElements.define("boton-borrar", BotonBorrar);
-
-
-
-        class BotonCopiar extends HTMLElement {
-            constructor() {
-                super();
-                const shadow = this.attachShadow({ mode: "open" });
-                shadow.innerHTML = `
-                    <style>
-                        button {
-                            background-color: #007bff;
-                            color: white;
-                            border: none;
-                            padding: 10px 15px;
-                            font-size: 16px;
-                            border-radius: 5px;
-                            cursor: pointer;
-                        }
-                        button:hover {
-                            background-color: #0056b3;
-                        }
-                    </style>
-                    <button>Copiar Datos</button>
-                `;
-
-                shadow.querySelector("button").addEventListener("click", () => {
-                    copiarDatos();
-                });
-            }
-        }
-
-        customElements.define("boton-copiar", BotonCopiar);
-
-        function obtenerSaludo() {
-            const fecha = new Date();
-            const hora = fecha.getHours();
-            if (hora >= 6 && hora < 12) return "Buenos días";
-            if (hora >= 12 && hora < 18) return "Buenas tardes";
-            return "Buenas noches";
-        }
-
-        const formularios = {
-            habilitarMiTigo: { titulo: "Habilitar MiTigo", campos: ["Login", "Nombre", "Documento Identidad", "Contrato Hogar", "Celular", "Correo Electrónico", "Falla", "Id de llamada", "ID Chat"] },
-            agilizarRecomendar: { titulo: "Agilizar recomendar", campos: ["Login", "Número de incidente", "Teléfonos (fijo-celular)", "Tipo de solicitud", "Ciudad", "Id de llamada", "Disponibilidad", "Motivo", "ID Chat"] },
-            activarDecos: { titulo: "Activar decos / paquetes", campos: ["Login", "Prueba Integrada", "Pedido", "ID TV", "ID Llamada", "MAC's Deco(s) a activar", "ID Inconsistencias", "ID Chat"] },
-            perfilLDAP: { titulo: "Perfil LDAP", campos: ["Login", "Prueba Integrada", "Pedido (velocidad del BA)", "ID BA", "ID Llamada", "MAC", "Observación", "ID Chat"] },
-            decoMalRetirado: { titulo: "Deco mal retirado", campos: ["Login", "Prueba Integrada", "Pedido", "ID TV", "ID Llamada", "MAC's Deco(s) a activar", "MAC's Deco(s) a inactivar", "ID Inconsistencias", "ID Chat"] },
-            habilitarCupos: { titulo: "Habilitar Cupos", campos: ["Login", "Número de incidente", "Teléfonos", "Tipo de solicitud", "Ciudad", "Id de llamada", "Disponibilidad", "Motivo", "ID Chat"] },
-            enviarDatos: { titulo: "Enviar Datos", campos: ["Activo", "Alias", "Cmts/Arpon", "Ciudad", "Naturaleza", "Marca y Ref Equipo"] },
-            parametrizarAgenda: {titulo: "Parametrizar Agenda", campos: ["Pedido", "Municipio", "Barrio", "Dirección", "Tecnología", "Tipo", "Observaciones", "Cel"]}
-        };
-
-        document.getElementById("seleccionar-planilla").addEventListener("change", function () {
-            const formContainer = document.getElementById("form-container");
-            formContainer.innerHTML = "";
-
-            if (this.value) {
-                const template = document.getElementById("plantilla-formulario").content.cloneNode(true);
-                const datosFormulario = formularios[this.value];
-
-                template.querySelector("#titulo").textContent = datosFormulario.titulo;
-
-                const camposContainer = template.querySelector("#campos");
-                datosFormulario.campos.forEach(campo => {
-                    const div = document.createElement("div");
-                    div.classList.add("form-group");
-                    if(campo === "Login"){
-                      div.innerHTML = `<label>${campo}:</label><input type="text" value="nherngom">`;
-                    }else if(campo === 'Tipo'){
-                      div.innerHTML = `<label>${campo}:</label><input type="text" value="RGU">`;
-                    } else if(datosFormulario.titulo === 'Parametrizar Agenda' && campo === 'Observaciones'){
-                      div.innerHTML = `<label>${campo}:</label><input type="text" value="No parametriza agendas">`;
-                    } else {
-                      div.innerHTML = `<label>${campo}:</label><input type="text">`;
-                    }
-                    camposContainer.appendChild(div);
-                });
-
-                template.querySelector("form").style.display = "grid";
-                formContainer.appendChild(template);
-            }
-        });
-
-        function copiarDatos() {
-            const formContainer = document.querySelector("#form-container form");
-            if (!formContainer) return;
-
-            let textoCopiar = `${obtenerSaludo()}, ¿podrías por favor ayudarme con el siguiente requerimiento?\n`;
-            textoCopiar += formContainer.querySelector("#titulo").textContent + "\n";
-
-            formContainer.querySelectorAll(".form-group").forEach(group => {
-                const label = group.querySelector("label")?.textContent;
-                const input = group.querySelector("input")?.value;
-                if (label && input !== undefined) {
-                    textoCopiar += `${label} ${input}\n`;
-                }
-            });
-
-            navigator.clipboard.writeText(textoCopiar).then(() => {
-                alert("Datos copiados con éxito!");
-            });
-        }
-    </script>
+      class BotonBorrar extends HTMLElement {
+          constructor() {
+              super();
+              const shadow = this.attachShadow({ mode: "open" });
+              shadow.innerHTML = `
+                  <style>
+                      button {
+                          background-color: #dc3545;
+                          color: white;
+                          border: none;
+                          padding: 10px 15px;
+                          font-size: 16px;
+                          border-radius: 5px;
+                          cursor: pointer;
+                      }
+                      button:hover {
+                          background-color: #c82333;
+                      }
+                  </style>
+                  <button type="button">Borrar Datos</button>
+              `;
+  
+              shadow.querySelector("button").addEventListener("click", (event) => {
+                  event.preventDefault(); // Evita el comportamiento por defecto
+                  this.borrarDatosFormulario();
+              });
+          }
+  
+          borrarDatosFormulario() {
+              const formContainer = document.querySelector("#form-container form");
+              if (!formContainer) return;
+  
+              formContainer.querySelectorAll("input, textarea").forEach(input => {
+                  if (input.id === "login") {
+                      input.value = "nherngom"; // Mantener el valor en "Login"
+                  } else if (input.previousElementSibling.textContent === "Tipo") {
+                      input.value = "RGU"; // Tipo por defecto si aplica
+                  } else if (input.previousElementSibling.textContent === "Observaciones") {
+                      input.value = "No parametriza agendas"; // Observaciones por defecto si aplica
+                  } else {
+                      input.value = "";
+                  }
+              });
+          }
+      }
+  
+      class BotonCopiar extends HTMLElement {
+          constructor() {
+              super();
+              const shadow = this.attachShadow({ mode: "open" });
+              shadow.innerHTML = `
+                  <style>
+                      button {
+                          background-color: #007bff;
+                          color: white;
+                          border: none;
+                          padding: 10px 15px;
+                          font-size: 16px;
+                          border-radius: 5px;
+                          cursor: pointer;
+                      }
+                      button:hover {
+                          background-color: #0056b3;
+                      }
+                  </style>
+                  <button type="button">Copiar Datos</button>
+              `;
+  
+              shadow.querySelector("button").addEventListener("click", (event) => {
+                  event.preventDefault(); // Evita el comportamiento por defecto
+                  copiarDatos();
+              });
+          }
+      }
+  
+      customElements.define("boton-borrar", BotonBorrar);
+      customElements.define("boton-copiar", BotonCopiar);
+  
+      function obtenerSaludo() {
+          const fecha = new Date();
+          const hora = fecha.getHours();
+          if (hora >= 6 && hora < 12) return "Buenos días";
+          if (hora >= 12 && hora < 18) return "Buenas tardes";
+          return "Buenas noches";
+      }
+  
+      const formularios = {
+          habilitarMiTigo: { titulo: "Habilitar MiTigo", campos: ["Login", "Nombre", "Documento Identidad", "Contrato Hogar", "Celular", "Correo Electrónico", "Falla", "Id de llamada", "ID Chat"] },
+          agilizarRecomendar: { titulo: "Agilizar recomendar", campos: ["Login", "Número de incidente", "Teléfonos (fijo-celular)", "Tipo de solicitud", "Ciudad", "Id de llamada", "Disponibilidad", "Motivo", "ID Chat"] },
+          activarDecos: { titulo: "Activar decos / paquetes", campos: ["Login", "Prueba Integrada", "Pedido", "ID TV", "ID Llamada", "MAC's Deco(s) a activar", "ID Inconsistencias", "ID Chat"] },
+          perfilLDAP: { titulo: "Perfil LDAP", campos: ["Login", "Prueba Integrada", "Pedido (velocidad del BA)", "ID BA", "ID Llamada", "MAC", "Observación", "ID Chat"] },
+          decoMalRetirado: { titulo: "Deco mal retirado", campos: ["Login", "Prueba Integrada", "Pedido", "ID TV", "ID Llamada", "MAC's Deco(s) a activar", "MAC's Deco(s) a inactivar", "ID Inconsistencias", "ID Chat"] },
+          habilitarCupos: { titulo: "Habilitar Cupos", campos: ["Login", "Número de incidente", "Teléfonos", "Tipo de solicitud", "Ciudad", "Id de llamada", "Disponibilidad", "Motivo", "ID Chat"] },
+          enviarDatos: { titulo: "Enviar Datos", campos: ["Activo", "Alias", "Cmts/Arpon", "Ciudad", "Naturaleza", "Marca y Ref Equipo"] },
+          parametrizarAgenda: { titulo: "Parametrizar Agenda", campos: ["Pedido", "Municipio", "Barrio", "Dirección", "Tecnología", "Tipo", "Observaciones", "Cel"] }
+      };
+  
+      document.getElementById("seleccionar-planilla").addEventListener("change", function () {
+          const formContainer = document.getElementById("form-container");
+          formContainer.innerHTML = "";
+  
+          if (this.value) {
+              const template = document.getElementById("plantilla-formulario").content.cloneNode(true);
+              const datosFormulario = formularios[this.value];
+  
+              template.querySelector("#titulo").textContent = datosFormulario.titulo;
+              const camposContainer = template.querySelector("#campos");
+  
+              datosFormulario.campos.forEach(campo => {
+                  const div = document.createElement("div");
+                  div.classList.add("form-group");
+  
+                  let valorPorDefecto = "";
+                  if (campo === "Login") valorPorDefecto = "nherngom";
+                  if (campo === "Tipo") valorPorDefecto = "RGU";
+                  if (datosFormulario.titulo === "Parametrizar Agenda" && campo === "Observaciones") valorPorDefecto = "No parametriza agendas";
+  
+                  div.innerHTML = `<label>${campo}:</label><input type="text" value="${valorPorDefecto}">`;
+                  camposContainer.appendChild(div);
+              });
+  
+              template.querySelector("form").style.display = "grid";
+              formContainer.appendChild(template);
+          }
+      });
+  
+      function copiarDatos() {
+          const formContainer = document.querySelector("#form-container form");
+          if (!formContainer) return;
+  
+          let textoCopiar = `${obtenerSaludo()}, ¿podrías por favor ayudarme con el siguiente requerimiento?\n`;
+          textoCopiar += formContainer.querySelector("#titulo").textContent + "\n";
+  
+          formContainer.querySelectorAll(".form-group").forEach(group => {
+              const label = group.querySelector("label").textContent;
+              const input = group.querySelector("input").value;
+              textoCopiar += `${label} ${input},\n`;
+          });
+  
+          navigator.clipboard.writeText(textoCopiar).then(() => {
+              //alert("Datos copiados con éxito!");
+          });
+      }
+  </script>
+  
 </body>
 </html>
+
 
