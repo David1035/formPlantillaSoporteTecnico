@@ -217,8 +217,16 @@
       function copiarDatos() {
           const formContainer = document.querySelector("#form-container form");
           if (!formContainer) return;
-  
-          let textoCopiar = `${obtenerSaludo()}, ¿podrías por favor ayudarme con el siguiente requerimiento?\n`;
+          let textoCopiar
+            if(formContainer.querySelector("#titulo").textContent === 'Enviar Datos' || formContainer.querySelector("#titulo").textContent === 'Parametrizar Agenda'){
+                textoCopiar = `${obtenerSaludo()}\n`;
+            } else {
+                textoCopiar = `${obtenerSaludo()}, Su ayudas por favor, con el siguiente requerimiento.\n`;
+            }
+          
+
+
+
           textoCopiar += formContainer.querySelector("#titulo").textContent + "\n";
   
           formContainer.querySelectorAll(".form-group").forEach(group => {
@@ -226,7 +234,10 @@
               const input = group.querySelector("input").value;
               textoCopiar += `${label} ${input}\n`;
           });
-  
+          
+          console.log(formContainer.querySelector("#titulo").textContent)
+
+          console.log()
           navigator.clipboard.writeText(textoCopiar).then(() => {
               //alert("Datos copiados con éxito!");
           });
