@@ -1,5 +1,5 @@
 const fenix = 'JRCPJ3NII89SG8';
-const elite = 'Dkh4d1Pgo9$8&31';
+const elite = 'DK84d1Pgo?&8K96';
 
 let horaInicial;
 let horaFinal;
