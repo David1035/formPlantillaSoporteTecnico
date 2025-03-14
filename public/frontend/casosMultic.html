@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Casos Multic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-5">
+
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold text-center mb-4">📋 Control de Casos Multic</h1>
+        
+        <!-- Formulario -->
+        <div class="mb-4">
+            <input type="text" id="casoMultic" placeholder="Número de Caso Multic" class="border rounded p-2 w-full mb-2">
+            <input type="text" id="idLlamada" placeholder="ID Llamada" class="border rounded p-2 w-full">
+            <button onclick="agregarCaso()" class="bg-blue-500 text-white px-4 py-2 rounded mt-2 w-full">Agregar Caso</button>
+        </div>
+
+        <!-- Lista de Casos -->
+        <ul id="casosLista" class="space-y-2"></ul>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            cargarCasos();
+        });
+
+        function agregarCaso() {
+            let multic = document.getElementById("casoMultic").value.trim();
+            let idLlamada = document.getElementById("idLlamada").value.trim();
+
+            if (!multic || !idLlamada) return alert("Ingrese todos los datos del caso.");
+
+            let casos = JSON.parse(localStorage.getItem("casos")) || [];
+            let nuevoCaso = {
+                id: Date.now(),
+                multic,
+                idLlamada,
+                fechaCreacion: new Date().getTime(),
+                agilizado: false,
+                horaAgilizacion: null // Nuevo campo
+            };
+
+            casos.push(nuevoCaso);
+            localStorage.setItem("casos", JSON.stringify(casos));
+            document.getElementById("casoMultic").value = "";
+            document.getElementById("idLlamada").value = "";
+            cargarCasos();
+        }
+
+        function cargarCasos() {
+            let casos = JSON.parse(localStorage.getItem("casos")) || [];
+            let lista = document.getElementById("casosLista");
+            lista.innerHTML = "";
+
+            let ahora = new Date().getTime();
+            let casosVencidos = [];
+            let casosNormales = [];
+
+            casos.forEach(caso => {
+                let tiempoTranscurrido = (ahora - caso.fechaCreacion) / (1000 * 60 * 60); // En horas
+                if (tiempoTranscurrido >= 48) {
+                    casosVencidos.push(caso);
+                } else {
+                    casosNormales.push(caso);
+                }
+            });
+
+            [...casosVencidos, ...casosNormales].forEach(caso => {
+                let tiempoTranscurrido = (ahora - caso.fechaCreacion) / (1000 * 60 * 60);
+                let esVencido = tiempoTranscurrido >= 48;
+                let casoElemento = document.createElement("li");
+
+                casoElemento.className = `p-3 border rounded flex justify-between items-center 
+                    ${esVencido ? "bg-orange-300" : "bg-gray-200"}`;
+
+                casoElemento.innerHTML = `
+                    <span>
+                        <strong>Multic:</strong> ${caso.multic} | 
+                        <strong>ID Llamada:</strong> ${caso.idLlamada} | 
+                        ${new Date(caso.fechaCreacion).toLocaleString()} |
+                        <strong>Estado:</strong> ${caso.agilizado ? "✅ Agilizado" : "⏳ Pendiente"} |
+                        <strong>Hora Agilización:</strong> ${caso.horaAgilizacion ? caso.horaAgilizacion : "N/A"}
+                    </span>
+                    <div class="space-x-2">
+                        <button onclick="copiarMensaje(${caso.id}, ${tiempoTranscurrido})"
+                            class="${esVencido ? "bg-red-500" : "bg-green-500"} text-white px-2 py-1 rounded">
+                            A
+                        </button>
+                        <button onclick="copiarCritico(${caso.id})" class="bg-yellow-600 text-white px-2 py-1 rounded">⚠</button>
+                        <button onclick="copiarID(${caso.id})" class="bg-blue-500 text-white px-2 py-1 rounded">ID</button>
+                        <button onclick="eliminarCaso(${caso.id})" class="bg-gray-500 text-white px-2 py-1 rounded">🗑</button>
+                    </div>
+                `;
+
+                lista.appendChild(casoElemento);
+            });
+        }
+
+        function obtenerSaludo() {
+            let hora = new Date().getHours();
+            if (hora >= 6 && hora < 12) return "Buenos días";
+            if (hora >= 12 && hora < 18) return "Buenas tardes";
+            return "Buenas noches";
+        }
+
+        function copiarMensaje(id, horasTranscurridas) {
+            let casos = JSON.parse(localStorage.getItem("casos")) || [];
+            let caso = casos.find(c => c.id === id);
+            if (caso) {
+                let mensaje = horasTranscurridas >= 48
+                    ? `${obtenerSaludo()}, su ayuda para agilizar caso Multic ${caso.multic} con ANS vencido.`
+                    : `${obtenerSaludo()}, su ayuda para agilizar caso Multic ${caso.multic}, cliente reiterativo, sin cumplir las 48 horas calendario.`;
+
+                navigator.clipboard.writeText(mensaje).then(() => {
+                    caso.agilizado = true;
+                    caso.horaAgilizacion = new Date().toLocaleTimeString(); // Guardar hora de agilización
+                    localStorage.setItem("casos", JSON.stringify(casos));
+                    cargarCasos();
+                });
+            }
+        }
+
+        function copiarCritico(id) {
+            let casos = JSON.parse(localStorage.getItem("casos")) || [];
+            let caso = casos.find(c => c.id === id);
+            if (caso) {
+                let mensaje = `${obtenerSaludo()}, su ayuda para agilizar caso Multic ${caso.multic} con ANS vencido.`;
+                navigator.clipboard.writeText(mensaje).then(() => {
+                    alert("Mensaje copiado al portapapeles");
+                });
+            }
+        }
+
+        function copiarID(id) {
+            let casos = JSON.parse(localStorage.getItem("casos")) || [];
+            let caso = casos.find(c => c.id === id);
+            if (caso) {
+                navigator.clipboard.writeText(caso.idLlamada).then(() => {
+                    alert("ID de llamada copiado al portapapeles");
+                });
+            }
+        }
+
+        function eliminarCaso(id) {
+            let casos = JSON.parse(localStorage.getItem("casos")) || [];
+            casos = casos.filter(c => c.id !== id);
+            localStorage.setItem("casos", JSON.stringify(casos));
+            cargarCasos();
+        }
+    </script>
+
+</body>
+</html>
