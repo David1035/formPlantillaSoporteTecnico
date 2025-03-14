@@ -38,7 +38,9 @@
                 id: Date.now(),
                 multic,
                 idLlamada,
-                fechaCreacion: new Date().getTime()
+                fechaCreacion: new Date().getTime(),
+                agilizado: false,
+                horaAgilizacion: null // Nuevo campo
             };
 
             casos.push(nuevoCaso);
@@ -78,7 +80,9 @@
                     <span>
                         <strong>Multic:</strong> ${caso.multic} | 
                         <strong>ID Llamada:</strong> ${caso.idLlamada} | 
-                        ${new Date(caso.fechaCreacion).toLocaleString()}
+                        ${new Date(caso.fechaCreacion).toLocaleString()} |
+                        <strong>Estado:</strong> ${caso.agilizado ? "✅ Agilizado" : "⏳ Pendiente"} |
+                        <strong>Hora Agilización:</strong> ${caso.horaAgilizacion ? caso.horaAgilizacion : "N/A"}
                     </span>
                     <div class="space-x-2">
                         <button onclick="copiarMensaje(${caso.id}, ${tiempoTranscurrido})"
@@ -111,7 +115,10 @@
                     : `${obtenerSaludo()}, su ayuda para agilizar caso Multic ${caso.multic}, cliente reiterativo, sin cumplir las 48 horas.`;
 
                 navigator.clipboard.writeText(mensaje).then(() => {
-                    //alert("Mensaje copiado al portapapeles");
+                    caso.agilizado = true;
+                    caso.horaAgilizacion = new Date().toLocaleTimeString(); // Guardar hora de agilización
+                    localStorage.setItem("casos", JSON.stringify(casos));
+                    cargarCasos();
                 });
             }
         }
