@@ -37,8 +37,7 @@
                 idLlamada,
                 fechaCreacion: new Date().getTime(),
                 agilizado: false,
-                horaAgilizacion: null,
-                vecesAgilizado: 0 // Contador de veces que se agiliza
+                horaAgilizacion: null
             });
 
             localStorage.setItem("casos", JSON.stringify(casos));
@@ -62,7 +61,7 @@
 
                 let casoElemento = document.createElement("li");
                 casoElemento.className = `p-3 border rounded flex justify-between items-center 
-                    ${esAgilizado ? "bg-green-300" : esVencido ? "bg-orange-300" : "bg-gray-200"}`;
+                    ${esAgilizado ? "bg-green-200" : esVencido ? "bg-orange-300" : "bg-gray-200"}`;
                 
                 casoElemento.innerHTML = `
                     <span>
@@ -75,12 +74,13 @@
                     <div class="space-x-2">
                         <button onclick="copiarMensaje(${caso.id})"
                             class="${esVencido ? "bg-red-500" : "bg-green-500"} text-white px-2 py-1 rounded">
-                            A
+                            Agilizar
                         </button>
                         <button onclick="copiarID(${caso.id})" class="bg-blue-500 text-white px-2 py-1 rounded">ID</button>
                         <button onclick="eliminarCaso(${caso.id})" class="bg-gray-500 text-white px-2 py-1 rounded">🗑</button>
                     </div>
                 `;
+
                 lista.appendChild(casoElemento);
             });
         }
@@ -94,8 +94,7 @@
             let casos = JSON.parse(localStorage.getItem("casos")) || [];
             let caso = casos.find(c => c.id === id);
             if (caso) {
-                caso.vecesAgilizado += 1; // Incrementa el contador
-                let mensaje = caso.vecesAgilizado > 1
+                let mensaje = caso.agilizado
                     ? `${obtenerSaludo()}, su ayuda para agilizar caso Multic ${caso.multic} con ANS vencido.`
                     : `${obtenerSaludo()}, su ayuda para agilizar caso Multic ${caso.multic}, cliente reiterativo, sin cumplir las 48 horas calendario.`;
 
