@@ -384,9 +384,13 @@ function stopCounter() {
 
 const btnFenix = document.getElementById('btn-fenix')
 const btnElite = document.getElementById('btn-elite')
+const btnPwd = document.getElementById('btn-pwd')
 btnFenix.addEventListener('click', () => {
     return navigator.clipboard.writeText(fenix)
 })
 btnElite.addEventListener('click', () => {
     return navigator.clipboard.writeText(elite)
+})
+btnPwd.addEventListener('click', () => {
+    return navigator.clipboard.writeText(pwd)
 })
