@@ -1,5 +1,6 @@
-const fenix = 'ftyNCEU4GO3AC7';
-const elite = 'DK84d1Pgo?&8K96';
+const fenix = 'ftKiC5U4GO3sC7';
+const elite = 'Dp65pKd15lo?&8K';
+const pwd = '%%CaféDeMamá**99'
 
 let horaInicial;
 let horaFinal;
