@@ -1,6 +1,6 @@
-const fenix = 'ftKiC5U4GO3sC7';
+const fenix = 'hIYIOYDMHRGJF5';
 const elite = 'Dp65pKd15lo?&8K';
-const pwd = '%%CaféDeMamá**99'
+const pwd = 'A&&MyDogIsZeus**33'
 
 let horaInicial;
 let horaFinal;
