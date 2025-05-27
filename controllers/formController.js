@@ -102,7 +102,7 @@ const getAverageTimeToday = async (req, res) => {
     try {
         const today = new Date();
         const startOfDay = new Date(today.setHours(0, 0, 0, 0));
-        const endOfDay = new Date(today.getHours(23, 59, 59, 999));
+        const endOfDay = new Date(today.setHours(23, 59, 59, 999));
 
         const registros = await Form.findAll({
             where: {
