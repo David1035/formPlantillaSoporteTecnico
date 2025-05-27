@@ -7,8 +7,8 @@ const Form = sequelize.define('Form', {
     name: {type: DataTypes.STRING, allowNull: true},
     documentoIdentidad: {type: DataTypes.STRING, allowNull: true},
     observaciones: {type: DataTypes.STRING, allowNull: true},
-    actualizacionDatos: {type: DataTypes.STRING, allowNull: true},
-    fecha: {type: DataTypes.STRING, allowNull: true},
+    //actualizacionDatos: {type: DataTypes.STRING, allowNull: true},
+    fecha: {type: DataTypes.DATE, allowNull: true},
     hora: {type: DataTypes.STRING, allowNull: true},
     tiempoPromedio: {type: DataTypes.FLOAT, allowNull: true}, 
     tipoPlantilla: {type: DataTypes.STRING, allowNull: true}

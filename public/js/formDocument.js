@@ -28,8 +28,8 @@ btnInicio.addEventListener('click', function(event) {
     event.preventDefault();
     horaInicial = new Date();
     hora = horaInicial.toTimeString().split(' ')[0]; // solo hora
-    fecha = horaInicial.toISOString().split('T')[0]; // solo fecha
-    console.log(hora);
+    fecha = horaInicial; // se envía un objeto
+    console.log(fecha)
     startCounter()
     insertarTexto()
     btnInicio.disabled = true;
@@ -85,13 +85,13 @@ async function enviarDatosAlServidor() {
     const horarioAtencion = document.getElementById('horario-atencion');
     const documento = document.getElementById('documentoIdentidad');
     const cel = document.getElementById('celular');
-    const actualizacion = document.getElementById('actualizacion-datos');
-    const guion = document.getElementById('guion-agendamiento');
+    //const actualizacion = document.getElementById('actualizacion-datos');
+    //const guion = document.getElementById('guion-agendamiento');
     const permisoEspecial = document.getElementById('permiso-especial')
     const horarioEspecialSabado = document.getElementById('horario-especial-sabado')
     const horarioEspecialDomingo = document.getElementById('horario-especial-domingo')
 
-    const actualizacionDatos = `¿Actualicé los datos?: ${actualizacion.value}, ¿brindé guion de agendamiento?: ${guion.value}`
+    //const actualizacionDatos = `¿Actualicé los datos?: ${actualizacion.value}, ¿brindé guion de agendamiento?: ${guion.value}`
 
     let plantillaCreada;
 
@@ -112,7 +112,7 @@ async function enviarDatosAlServidor() {
         name: document.getElementById('name').value,
         documentoIdentidad: documento.value,
         observaciones: plantillaCreada,
-        actualizacionDatos: actualizacionDatos,
+        //actualizacionDatos: actualizacionDatos,
         fecha: fecha,
         hora: hora,
         tiempoPromedio: tiempoTotal,
@@ -290,8 +290,8 @@ function limpiarDatosForm () {
     document.getElementById('atiende-b2b').value = '';
     document.getElementById('celular-b2b').value = '';
     document.getElementById('dias-atencion').value = 'Lunes a Viernes';
-    document.getElementById('actualizacion-datos').value = 'no';
-    document.getElementById('guion-agendamiento').value = 'no';
+    //document.getElementById('actualizacion-datos').value = 'no';
+    //document.getElementById('guion-agendamiento').value = 'no';
     document.getElementById('horario-atencion').value = '';
     document.getElementById('permiso-especial').value = '';
     document.getElementById('horario-especial-sabado').value = '';
