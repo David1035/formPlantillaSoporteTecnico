@@ -2,6 +2,7 @@ const { Op } = require('sequelize')
 const sequelize = require('../config/db');
 const Form = require('../models/Form')
 
+
 // Obtener todos los registros con opción de límite
 const getAllForm = async (req, res) => {
     try {

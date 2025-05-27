@@ -1,3 +1,5 @@
+//const dayjs = require('dayjs');
+
 const fenix = 'hIYIOYDMHRGJF5';
 const elite = 'Dp65pKd15lo?&8K';
 const pwd = 'A&&MyDogIsZeus**33'
@@ -23,6 +25,8 @@ const selectTipoServicio = document.getElementById('tipoServicio');
 const selectNaturaleza = document.getElementById('naturaleza');
 const idLlamada = document.getElementById('id-llamada');
 
+//const monthName = dayjs().format('MMMM');  // → 'May'
+//const dayName = dayjs().format('dddd');    // → 'Monday'
 
 btnEnviar.disabled = true;
 btnInicio.addEventListener('click', function(event) {
