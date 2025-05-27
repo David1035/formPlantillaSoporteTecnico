@@ -1,6 +1,7 @@
 const fenix = 'hIYIOYDMHRGJF5';
 const elite = 'Dp65pKd15lo?&8K';
 const pwd = 'A&&MyDogIsZeus**33'
+const evidente = 'A&&MyDogIsZeus33'
 
 let horaInicial;
 let horaFinal;
@@ -28,8 +29,8 @@ btnInicio.addEventListener('click', function(event) {
     event.preventDefault();
     horaInicial = new Date();
     hora = horaInicial.toTimeString().split(' ')[0]; // solo hora
-    fecha = horaInicial; // se envía un objeto
-    console.log(fecha)
+    fecha = new Date();
+    //console.log(fecha)
     startCounter()
     insertarTexto()
     btnInicio.disabled = true;
@@ -158,17 +159,17 @@ async function insertarTexto() {
     const totalTiempotext = document.getElementById('totalTiempoText')
     const tipoAht = 'mensual'
     try {
-        const response = await fetch(API_URL)
-        const data = await response.json()
-        const dataPorMesActual = data.filter((registro) => {
-            const fechaCreate = new Date(registro.createdAt)
-            const fechaActual = new Date()
-            return fechaCreate.getMonth() === fechaActual.getMonth()
-        })
+        const response = await fetch(`${API_URL}average/month`);
+        if(!response.ok) throw new Error('Error al obtener el promedio mensual')
+
+        const data = await response.json();
+        const aht = data.promedio || 0;
         
-        calcularTiempoTotal(dataPorMesActual, totalTiempotext, tipoAht)
+        totalTiempotext.textContent = `AHT ${tipoAht} --------- ${aht.toFixed()}, Min ${(aht / 60).toFixed(2)}`;
+        totalTiempotext.style.backgroundColor = '#D5D2F5'
     } catch (error) {
-        console.error('error al cargar los datos', error)
+        totalTiempotext.textContent = `AHT ${tipoAht} --------- 0, Min 0.00`;
+        //totalTiempotext.style.backgroundColor = '#D5D2F5'
     }
 }
 insertarTexto()
@@ -177,57 +178,22 @@ async function ahtPorDia() {
     const ahtDiario = document.getElementById('ahtDiario')
     const tipoAht = 'hoy'
     try {
-        const response = await fetch(API_URL)
-        if(!response.ok) {
-            throw new Error('Error al obtener los datos ', response.statusText)
-        } else {
-            const data = await response.json();
-            const horaActual = new Date();
+        const response = await fetch(`${API_URL}average/today`);
+        if(!response.ok) throw new Error('Error al obtener el promedio diario');
 
-            //Registros por día actual 
-            const registrosHoy = data.filter((registro) => {
-                const horaCreada = new Date(registro.createdAt);
-                return horaCreada.getDate() === horaActual.getDate();
-            })
-            
-            calcularTiempoTotal(registrosHoy, ahtDiario, tipoAht)
-        }
+        const data = await response.json();
+        const aht = data.promedio || 0;
+
+        ahtDiario.textContent = `AHT ${tipoAht} --------- ${aht.toFixed()}, Min ${(aht / 60).toFixed(2)}`;
+        ahtDiario.style.backgroundColor = '#f9f9f9'
     } catch (error) {
-        console.error('error al obtener los datos', error)
+        console.error('error al obtener el promedio diario', error)
     }
 }
 
 ahtPorDia()
 
-// functión para calculcar el tiempo total de los registros
-function calcularTiempoTotal(registrosHoy, ahtDiario, tipoAht) {
-    const tipoPlantilla = document.getElementById('modoDeTrabajo')
 
-    const registrosN2 = registrosHoy.filter(registro => registro.tipoPlantilla === 'N2')
-    const registrosN1 = registrosHoy.filter(registro => registro.tipoPlantilla === 'N1')
-    const tiempoTotalN2 = registrosN2.reduce((acc, curr) => acc + curr.tiempoPromedio, 0)
-    const tiempoTotalN1 = registrosN1.reduce((acc, curr) => acc + curr.tiempoPromedio, 0)
-
-    if(tipoPlantilla.value === 'N2'){
-        const aht = tiempoTotalN2 / registrosN2.length || 0;
-        ahtDiario.textContent = `AHT ${tipoAht} N2: -------- ${aht.toFixed()}, Min ${(aht / 60).toFixed(2)}`
-        if(tipoAht === 'hoy'){
-            ahtDiario.style.backgroundColor = '#f9f9f9';
-        } else {
-            ahtDiario.style.backgroundColor = '#D5D2F5';
-        }
-    } else {
-        const aht = tiempoTotalN1 / registrosN1.length || 0;
-        ahtDiario.textContent = `AHT ${tipoAht} N1: -------- ${aht.toFixed()}, Min ${(aht / 60).toFixed(2)}`
-    
-        ahtDiario.style.marginTop = '5px';
-        if(tipoAht === 'hoy'){
-            ahtDiario.style.backgroundColor = '#f9f9f9';
-        } else {
-            ahtDiario.style.backgroundColor = '#D5D2F5';
-        }
-    }
-}
 
 function insertarTextDinamico() {
     const modoDeTrabajo = document.getElementById('modoDeTrabajo')

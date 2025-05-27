@@ -1,3 +1,5 @@
+const { Op } = require('sequelize')
+const sequelize = require('../config/db');
 const Form = require('../models/Form')
 
 // Obtener todos los registros con opción de límite
@@ -95,6 +97,62 @@ const searchIdLlamadaForm = async (req, res) => {
     }
 }
 
+//consultar registros por día
+const getAverageTimeToday = async (req, res) => {
+    try {
+        const today = new Date();
+        const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+        const endOfDay = new Date(today.getHours(23, 59, 59, 999));
 
-module.exports = { getAllForm, createForm, getFormById, updateForm, deleteForm, searchDocumentoForm, searchIdLlamadaForm }
+        const registros = await Form.findAll({
+            where: {
+                fecha: {
+                    [Op.between]: [startOfDay, endOfDay]
+                }
+            }
+        });
+
+        if (registros.length === 0){
+            return res.json({ promedio: 0, message: 'No hay registro para hoy' });
+        }
+
+        const totalTiempo = registros.reduce((acc, item) => acc + item.tiempoPromedio, 0);
+        const promedio = totalTiempo / registros.length;
+
+        res.json({ promedio, registros: registros.length});
+    } catch (error) {
+        res.status(500).json({ error: 'Error al calcular promediio diario'})
+    }
+};
+
+const getAverageTimeByMonth = async (req, res) => {
+    try {
+        const today = new Date();
+        const currentMonth = today.getMonth();
+        const currentYear = today.getFullYear();
+
+        const registros = await Form.findAll({
+            where: {
+                [Op.and]: [
+                    sequelize.where(sequelize.fn('MONTH', sequelize.col('fecha')), currentMonth + 1),
+                    sequelize.where(sequelize.fn('YEAR', sequelize.col('fecha')), currentYear)
+                ]
+            }
+        });
+
+        if ( registros.length === 0) {
+            return res.json({ promedio: 0, message: 'No hay registros este mes'});
+        }
+
+        const tiempoTotal = registros.reduce((acc, item) => acc + item.tiempoPromedio, 0);
+        const promedio = tiempoTotal / registros.length;
+
+        res.json({ promedio, registros: registros.length})
+    } catch (error) {
+        res.status(500).json({ error: 'Error al calcular el promedio mensual '})
+    }
+}
+
+
+module.exports = { getAllForm, createForm, getFormById, updateForm, deleteForm, searchDocumentoForm, searchIdLlamadaForm, getAverageTimeToday, getAverageTimeByMonth }
 
