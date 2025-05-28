@@ -129,30 +129,31 @@ const getAverageTimeToday = async (req, res) => {
 const getAverageTimeByMonth = async (req, res) => {
     try {
         const today = new Date();
-        const currentMonth = today.getMonth();
-        const currentYear = today.getFullYear();
+        const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59, 999);
 
         const registros = await Form.findAll({
             where: {
-                [Op.and]: [
-                    sequelize.where(sequelize.fn('MONTH', sequelize.col('fecha')), currentMonth + 1),
-                    sequelize.where(sequelize.fn('YEAR', sequelize.col('fecha')), currentYear)
-                ]
+                fecha: {
+                    [Op.between]: [startOfMonth, endOfMonth]
+                }
             }
         });
 
-        if ( registros.length === 0) {
-            return res.json({ promedio: 0, message: 'No hay registros este mes'});
+        if (registros.length === 0) {
+            return res.json({ promedio: 0, message: 'No hay registros este mes' });
         }
 
         const tiempoTotal = registros.reduce((acc, item) => acc + item.tiempoPromedio, 0);
         const promedio = tiempoTotal / registros.length;
 
-        res.json({ promedio, registros: registros.length})
+        res.json({ promedio, registros: registros.length });
     } catch (error) {
-        res.status(500).json({ error: 'Error al calcular el promedio mensual '})
+        console.error(error); // imprime el error para debug
+        res.status(500).json({ error: 'Error al calcular el promedio mensual' });
     }
-}
+};
+
 
 
 module.exports = { getAllForm, createForm, getFormById, updateForm, deleteForm, searchDocumentoForm, searchIdLlamadaForm, getAverageTimeToday, getAverageTimeByMonth }
