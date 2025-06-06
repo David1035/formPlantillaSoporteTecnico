@@ -2,8 +2,10 @@
 
 const fenix = 'hIYIOYDMHRGJF5';
 const elite = 'Dp65pKd15lo?&8K';
-const pwd = 'A&&MyDogIsZeus**33'
+const pwd = '9j7CJ6yVk9FC$$'
+//const pwd = 'A&&MyDogIsZeus**33'
 const evidente = 'A&&MyDogIsZeus33'
+
 
 let horaInicial;
 let horaFinal;
